@@ -1,0 +1,26 @@
+---
+title: "John Mayer's Sob Rock - New Genre or nah?"
+author: "Rafael Abbariao"
+date: "`r format(Sys.time(), '%d-%B-%Y')`"
+output:
+  html_document:
+    code_folding: hide
+    df_print: paged
+    theme: flatly
+  html_notebook:
+    code_folding: hide
+    df_print: paged
+    theme: flatly
+  pdf_document: default
+header-includes: \usepackage{fvextra} \usepackage{titling} \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+---
+
+```{r echo=FALSE}
+htmltools::img(src = knitr::image_uri(file.path("sobrock.png")),
+               alt = 'logo',
+               style = 'position:absolute; top:0; right:0; padding:10px; margin-right:100px; max-width:15%')
+```
+
+My pandemic passion project was to better my health and ensure that my immune system can toughen out any sickness that may come my way. I did that through running which led me to compete in my first half-marathon. An integral component of my training was, of course, my Spotify playlist which consisted of comedy podcasts to numb the pain, a bunch of motivational mumbo jumbo from David Goggins about 'staying hard', and then John Mayer who's pandemic passion project is the topic of conversation.
+
+John Mayer's most recent album, Sob Rock, brought some hope in the midst of the lonely nights of programming and chill. 
