@@ -333,17 +333,17 @@ legend(x=0.75,
 ##### Scatter Plot on Valence/Energy Quadrants (to display the relationship bw 2 variables) #####
 
 ggplot(sob_rock_all, aes(x = valence, y = energy, color = genre)) + 
-  geom_point(size = 3) +
-  geom_vline(xintercept = 0.5, colour = "gray", linetype = "longdash") +  
-  geom_hline(yintercept = 0.5, colour = "gray", linetype = "longdash") +
-  scale_x_continuous(expand = c(0, 0), limits = c(0, 1)) +
-  scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
-  annotate('text', 0.30 / 2, 0.95, label = "Crazy Train Vibes") +
-  annotate('text', 1.75 / 2, 0.95, label = "Heppy Heppy") +
-  annotate('text', 1.75 / 2, 0.05, label = "Euphoria") +
-  annotate('text', 0.25 / 2, 0.05, label = ":'(") +
-  labs(x= "Valence", y= "Energy") +
-  theme(plot.margin = margin(15,15,15,15))
+  ggplot2::geom_point(size = 3) +
+  ggplot2::geom_vline(xintercept = 0.5, colour = "gray", linetype = "longdash") +  
+  ggplot2::geom_hline(yintercept = 0.5, colour = "gray", linetype = "longdash") +
+  ggplot2::scale_x_continuous(expand = c(0, 0), limits = c(0, 1)) +
+  ggplot2::scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+  ggplot2::annotate('text', 0.30 / 2, 0.95, label = "Crazy Train Vibes") +
+  ggplot2::annotate('text', 1.75 / 2, 0.95, label = "Heppy Heppy") +
+  ggplot2::annotate('text', 1.75 / 2, 0.05, label = "Euphoria") +
+  ggplot2::annotate('text', 0.25 / 2, 0.05, label = ":'(") +
+  ggplot2::labs(x= "Valence", y= "Energy")
+  # ggplot2::theme(plot.margin = margin(15,15,15,15))
 
 '###############################################################################'
 
@@ -457,135 +457,3 @@ ggplot(john_mayer_all, aes(x = valence, y = energy, color = genre)) +
   annotate('text', 0.25 / 2, 0.05, label = ":'(") +
   labs(x= "Valence", y= "Energy") +
   theme(plot.margin = margin(15,15,15,15))
-
-'###############################################################################'
-#### Genius API Connection ####
-
-load_dot_env()
-
-# App Client ID and Client Secret
-clientID = Sys.getenv("GENIUS_ID")
-clientSecret = Sys.getenv("GENIUS_SECRET")
-
-# Token
-token <- Sys.getenv("GENIUS_TOKEN")
-
-if (length(token) > 0) {
-  message("Genius Connection Ready")
-}
-
-'###############################################################################'
-
-#### Lyric Analysis Part 1 - Album vs Playlist ####
-
-##### Compile Genius URLs  ####
-
-# Get Artist ID from Genius
-genius_jm <- geniusGetArtist("John Mayer")
-
-# Retrieve Artist's Track URL
-baseURL <- 'https://api.genius.com/artists/'
-requestURL <- paste0(baseURL, genius_jm$artist_id[1], '/songs')
-
-track_lyric_urls <- list()
-
-i <- 1
-while (i > 0) {
-  tmp <- httr::GET(requestURL,
-                   query = list(access_token = token,
-                                per_page = 50, page = i)) %>%
-    httr::content() %>%
-    .$response
-
-  track_lyric_urls <- c(track_lyric_urls, tmp$songs)
-
-  if (!is.null(tmp$next_page)) {
-    i <- tmp$next_page
-  } else {
-    break
-  }
-}
-
-# URL of Songs in SobRock Album
-sobrock_album_urls <- data.frame(title = character(),
-                                 url = character(),
-                                 stringsAsFactors = FALSE)
-
-for (i in 1:length(track_lyric_urls)) {
-  if (track_lyric_urls[[i]]$artist_names == "John Mayer") {
-    if (track_lyric_urls[[i]]$title %in% Sob_Rock_Album$name) {
-      df = data.frame(title = track_lyric_urls[[i]]$title,
-                       url = track_lyric_urls[[i]]$url)
-
-      sobrock_album_urls <- rbind(sobrock_album_urls, df)
-    }
-  }
-}
-
-sobrock_album_urls$url <- as.character(sobrock_album_urls$url)
-
-# missing one song - Shouldn't Matter But it Does, ironically enough
-
-# URL of Songs in Sob Rock Playlist
-# sobrock_playlist_urls <- lapply(setNames(Sob_Rock_Playlist$artist, Sob_Rock_Playlist$name), geniusGetURL, Sob_Rock_Playlist$name)
-# sobrock_playlist_urls <- lapply(Sob_Rock_Playlist$artist, geniusGetURL, Sob_Rock_Playlist$name)
-
-sobrock_playlist_urls <- Sob_Rock_Playlist %>%
-  mutate(url = gsub('[[:punct:]]+', '', name))
-  mutate(url = paste0("https://genius.com/", paste(.$artist, .$name, sep = "-"))) %>%
-  mutate(url = str_replace_all(url, " - ", " ")) %>%
-  mutate(url = str_replace_all(url, " ", "-")) %>%
-  mutate(url = paste0(url, "-lyrics")) %>%
-  select(title = name, url, genre)
-
-
-# URL of Songs in other John Mayer Albums
-# other_album_urls <- subset(track_lyric_urls, !(title %in% Sob_Rock_Album$name))
-# other_album_urls <- subset(other_album_tracks, primary_artist$name == "John Mayer")
-
-# other_album_urls <- track_lyric_urls[which(!sapply(track_lyric_urls, '[[', 'title') %in% Sob_Rock_Album$name)]
-# other_album_urls <- other_album_urls[which(sapply(track_lyric_urls, '[[', 'artist_names') == 'John Mayer')]
-
-other_album_urls <- Other_JM_Albums %>%
-  mutate(url = paste0("https://genius.com/", paste(.$artist, .$name, sep = "-"))) %>%
-  mutate(url = str_replace_all(url, " ", "-")) %>%
-  select(title = name, url, genre)
-
-
-##### Retrieve Lyrics from SobRock Album ####
-
-'
-Read this about lemmatization
-https://stackoverflow.com/questions/42522024/does-stemdocument-in-r-remove-ed-ending
-
-https://towardsdatascience.com/stemming-vs-lemmatization-2daddabcb221
-
-Instead of tm::_map(stemDocument) use SnowballC::wordStem(, language = "english")
-
-Stemming: 
-  - eds removed from word without regard for the meaning or context
-  - reduces past-tense or plurals to the singular
-  - simply trims back to the assumed root
-  - use SnowballC package
-  
-Lemmatizing:
-  - true root of the word is the lexeme
-  - sometimes this is lost in stemming
-  - lemmatization uses context to decide what the meaning of the root is
-  - use Wordnet package
-  - use textstem
-'
-
-###### Apply getLyrics function #####
-sobrock_lyrics <- stack(lapply(setNames(sobrock_album_urls$url, sobrock_album_urls$title), getLyrics)) %>%
-  select("title" = 2, "lyrics" = 1)
-
-####### Cleaning using tidytext, textclean ####
-library(tidytext)
-library(textclean)
-
-tidy_lyrics <- sobrock_lyrics %>%
-  dplyr::mutate(Lyrics = )
-  tidytext::unnest_tokens(output = "word", input = "Lyrics") %>%
-  dplyr::anti_join(tidytext::get_stopwords()) %>%
-  dplyr::count(word, sort = TRUE)

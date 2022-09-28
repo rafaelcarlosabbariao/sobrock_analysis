@@ -134,16 +134,67 @@ Instead of tm::_map(stemDocument) use SnowballC::wordStem(, language = "english"
 Stemming: 
   - eds removed from word without regard for the meaning or context
   - reduces past-tense or plurals to the singular
-  - simply trims back to the assumed root
+  - simply trims back to the assumed root using suffix mapping rules
   - use SnowballC package
+  - Options
+    - tm::stemDocument() --> Porter Stemming
+    - SnowballC::wordStem() --> Porter Stemming
   
 Lemmatizing:
   - true root of the word is the lexeme
   - sometimes this is lost in stemming
   - lemmatization uses context to decide what the meaning of the root is
+  - Uses vocabulary and morphological analysis 
   - use Wordnet package
   - use textstem
+  - Options
+    - wordnet::getLemma()
+    - textstem::lemmatize_words() --> hash_lemmas
 '
+
+# Function to Retrieve Genius Lyrics by Song
+getLyrics <-  function(url) {
+  divs <- rvest::read_html(url) %>% # scrape data from HTML
+    rvest::html_nodes(xpath = '//*[@id="lyrics-root"]/div[2]') %>%
+    rvest::html_text()
+  
+  # remove verse|intro|outro and brackets, carriage returns replaced with spaces
+  lyrics <- gsub("\\[[^\\]]*]", " ",
+                 gsub("([^ ])([A-Z])", "\\1 \\2", divs[1]), perl=TRUE)
+  
+  return(lyrics)
+}
+
+# Function to Retrieve Genius Lyrics by Song & Clean using tm library
+cleanLyrics <-  function(url) {
+  divs <- rvest::read_html(url) %>%
+    rvest::html_nodes(xpath = '//*[@id="lyrics-root"]/div[2]') %>%
+    rvest::html_text()
+  
+  # remove verse|intro|outro and brackets, carriage returns replaced with spaces
+  lyrics <- gsub("\\[[^\\]]*]", " ",
+                 gsub("([^ ])([A-Z])", "\\1 \\2", divs[1]), perl=TRUE)
+  
+  corpus = tm::VCorpus(VectorSource(lyrics)) %>%
+    tm::tm_map(stripWhitespace) %>%
+    tm::tm_map(removeNumbers) %>% 
+    tm::tm_map(tm::content_transformer(tolower)) %>%
+    tm::tm_map(removePunctuation) %>%
+    tm::tm_map(tm::content_transformer(replace_contraction)) %>%
+    tm::tm_map(textstem::lemmatize_words) %>%
+    # tm::tm_map(tm::content_transformer(SnowballC::wordStem)) %>%
+    # tm::tm_map(tm::stemDocument) %>%
+    tm::tm_map(removeWords, stopwords("english")) %>%
+  
+  dtm = tm::DocumentTermMatrix(corpus)
+  
+  dtm = tm::removeSparseTerms(dtm, 0.999)
+  
+  return(dtm[["dimnames"]][["Terms"]])
+  
+  # lemmatize_words(word, dictionary = lexicon::hash_lemmas)
+  # return(SnowballC::wordStem(dtm[["dimnames"]][["Terms"]], language="english"))
+}
 
 ###### Apply getLyrics function #####
 sobrock_lyrics <- stack(lapply(setNames(sobrock_album_urls$url, sobrock_album_urls$title), getLyrics)) %>%
@@ -165,11 +216,17 @@ unnest_tokens splits a column of lyrics into tokens
 - words converted to lowercase
 - also allows for different units of tokenizing (ngrams, skip_ngrams)
 - only issue is that the function does not handle contractions
+
+This gives us TIDY DATA
+- Each variable forms a column
+- Each observation forms a row
+- Each type of observational unit forms a table
 '
 
 tidy_lyrics <- sobrock_lyrics %>%
   dplyr::mutate(lyrics = textclean::replace_contraction(lyrics, contraction.key = lexicon::key_contractions)) %>%
   tidytext::unnest_tokens(output = "word", input = "lyrics") %>%
+  textstem::lemmatize_words(word, dictionary = lexicon::hash_lemmas) %>%
   dplyr::anti_join(tidytext::get_stopwords()) %>%
   dplyr::filter(!word %in% c("ooh", "ah", "da", "oh", "uh")) # remove oohs and ahs
 
@@ -181,7 +238,12 @@ tidy_lyrics %>%
 wordcloud_df <- tidy_lyrics %>%
   dplyr::count(word)
 
-wordcloud(wordcloud_df$word, wordcloud_df$n, max.words = 50)
+wordcloud(wordcloud_df$word, wordcloud_df$n, max.words = 50, 
+          random.order = F, colors = brewer.pal(8, 'Dark2'))
+
+'
+As corny as it is, with the 3 main words of "JUST WANT LOVE" along with a 
+'
 
 '
 Zipfs law states that the frequency that a word appears is inversely proportional to its rank
@@ -202,7 +264,7 @@ term_freq %>%
 ##### TD-IDF ####
 
 '
-bind_tf_idf() adds tf-idf values to a tidy text dataset
+tidytext::bind_tf_idf() adds tf-idf values to a TIDY TEXT DATASET
 
 Top tf-idf values are not affected by stop words as IDF values of such stop words are very small
 (due to their presence in almost every document)
@@ -238,6 +300,11 @@ Join tidy_lyrics with lexicon of sad words
 
 library(textdata)
 
+
+words <- tidytext::get_sentiments("nrc") 
+
+unique(words$sentiment)
+
 sad_words <- tidytext::get_sentiments("nrc") %>%
   dplyr::filter(sentiment == 'sadness') %>%
   dplyr::select(word) %>%
@@ -250,6 +317,12 @@ sentiments <- tidy_lyrics %>%
                    word_count = n()) %>%
   dplyr::select(title, sadness) %>%
   dplyr::arrange(desc(sadness))
+
+ggplot(sentiments) + 
+  geom_col(aes(x = reorder(title, sadness), y = sadness, fill = title), show.legend = FALSE) + 
+  coord_flip() + 
+  labs(x = NULL)
+
 
 ##### Lyrical Density #### 
 
