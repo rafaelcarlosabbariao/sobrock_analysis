@@ -9,3 +9,4 @@
 *.bak
 *.env
 *.csv
+ignore/

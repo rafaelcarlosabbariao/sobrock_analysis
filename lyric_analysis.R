@@ -20,6 +20,7 @@ source("functions.R")
 Sob_Rock_Album <- readRDS("sobrockalbum.rds")
 Other_JM_Albums <- readRDS("otherjmalbums.rds")
 Sob_Rock_Playlist <- readRDS("sobrockplaylist.rds")
+# saveRDS(John_Mayer_Albums, "john_mayer_songs.rds")
 
 '###############################################################################'
 #### Genius API Connection ####
@@ -50,8 +51,8 @@ genius_jm <- geniusGetArtist("John Mayer")
 baseURL <- 'https://api.genius.com/artists/'
 requestURL <- paste0(baseURL, genius_jm$artist_id[1], '/songs')
 
+# Loop thru all songs returned by jm urls
 track_lyric_urls <- list()
-
 i <- 1
 while (i > 0) {
   tmp <- httr::GET(requestURL,
@@ -94,10 +95,6 @@ sobrock_album_urls <- rbind(sobrock_album_urls, missing_song)
 sobrock_album_urls$url <- as.character(sobrock_album_urls$url)
 
 # URL of Songs in Sob Rock Playlist
-
-# sobrock_playlist_urls <- lapply(setNames(Sob_Rock_Playlist$artist, Sob_Rock_Playlist$name), geniusGetURL, Sob_Rock_Playlist$name)
-# sobrock_playlist_urls <- lapply(Sob_Rock_Playlist$artist, geniusGetURL, Sob_Rock_Playlist$name)
-
 sobrock_playlist_urls <- Sob_Rock_Playlist %>%
   dplyr::mutate(url = gsub('[[:punct:]]+', '', name)) %>%
   dplyr::mutate(url = paste0("https://genius.com/", paste(.$artist, .$name, sep = "-"))) %>%
@@ -106,20 +103,11 @@ sobrock_playlist_urls <- Sob_Rock_Playlist %>%
   dplyr::mutate(url = paste0(url, "-lyrics")) %>%
   dplyr::select(title = name, url, genre)
 
-
 # URL of Songs in other John Mayer Albums
-
-# other_album_urls <- subset(track_lyric_urls, !(title %in% Sob_Rock_Album$name))
-# other_album_urls <- subset(other_album_tracks, primary_artist$name == "John Mayer")
-
-# other_album_urls <- track_lyric_urls[which(!sapply(track_lyric_urls, '[[', 'title') %in% Sob_Rock_Album$name)]
-# other_album_urls <- other_album_urls[which(sapply(track_lyric_urls, '[[', 'artist_names') == 'John Mayer')]
-
 other_album_urls <- Other_JM_Albums %>%
   dplyr::mutate(url = paste0("https://genius.com/", paste(.$artist, .$name, sep = "-"))) %>%
   dplyr::mutate(url = str_replace_all(url, " ", "-")) %>%
   dplyr::select(title = name, url, genre)
-
 
 ##### Retrieve Lyrics from SobRock Album ####
 
@@ -152,58 +140,16 @@ Lemmatizing:
     - textstem::lemmatize_words() --> hash_lemmas
 '
 
-# Function to Retrieve Genius Lyrics by Song
-getLyrics <-  function(url) {
-  divs <- rvest::read_html(url) %>% # scrape data from HTML
-    rvest::html_nodes(xpath = '//*[@id="lyrics-root"]/div[2]') %>%
-    rvest::html_text()
-  
-  # remove verse|intro|outro and brackets, carriage returns replaced with spaces
-  lyrics <- gsub("\\[[^\\]]*]", " ",
-                 gsub("([^ ])([A-Z])", "\\1 \\2", divs[1]), perl=TRUE)
-  
-  return(lyrics)
-}
-
-# Function to Retrieve Genius Lyrics by Song & Clean using tm library
-cleanLyrics <-  function(url) {
-  divs <- rvest::read_html(url) %>%
-    rvest::html_nodes(xpath = '//*[@id="lyrics-root"]/div[2]') %>%
-    rvest::html_text()
-  
-  # remove verse|intro|outro and brackets, carriage returns replaced with spaces
-  lyrics <- gsub("\\[[^\\]]*]", " ",
-                 gsub("([^ ])([A-Z])", "\\1 \\2", divs[1]), perl=TRUE)
-  
-  corpus = tm::VCorpus(VectorSource(lyrics)) %>%
-    tm::tm_map(stripWhitespace) %>%
-    tm::tm_map(removeNumbers) %>% 
-    tm::tm_map(tm::content_transformer(tolower)) %>%
-    tm::tm_map(removePunctuation) %>%
-    tm::tm_map(tm::content_transformer(replace_contraction)) %>%
-    tm::tm_map(textstem::lemmatize_words) %>%
-    # tm::tm_map(tm::content_transformer(SnowballC::wordStem)) %>%
-    # tm::tm_map(tm::stemDocument) %>%
-    tm::tm_map(removeWords, stopwords("english")) %>%
-  
-  dtm = tm::DocumentTermMatrix(corpus)
-  
-  dtm = tm::removeSparseTerms(dtm, 0.999)
-  
-  return(dtm[["dimnames"]][["Terms"]])
-  
-  # lemmatize_words(word, dictionary = lexicon::hash_lemmas)
-  # return(SnowballC::wordStem(dtm[["dimnames"]][["Terms"]], language="english"))
-}
-
 ###### Apply getLyrics function #####
 sobrock_lyrics <- stack(lapply(setNames(sobrock_album_urls$url, sobrock_album_urls$title), getLyrics)) %>%
   select("title" = 2, "lyrics" = 1)
 
 # sobrock_lyrics <- stack(lapply(setNames(sobrock_album_urls$url, sobrock_album_urls$title), cleanLyrics))
 
+jm_lyrics <- lapply(setNames(other_album_urls$url, other_album_urls$title), getLyrics)
+
 ###### Cleaning using tidytext, textclean ####
-library(tidytext)
+library(tidytext) # for tidy NLP methods
 library(textclean) # for contractions
 library(wordcloud) 
 
@@ -232,7 +178,8 @@ tidy_lyrics <- sobrock_lyrics %>%
 
 # count of words
 tidy_lyrics %>%
-  dplyr::count(word, sort = TRUE)
+  dplyr::count(word, sort = TRUE) %>%
+  dplyr::top_n(50)
 
 ##### Wordcloud ####
 wordcloud_df <- tidy_lyrics %>%
@@ -242,13 +189,16 @@ wordcloud(wordcloud_df$word, wordcloud_df$n, max.words = 50,
           random.order = F, colors = brewer.pal(8, 'Dark2'))
 
 '
-As corny as it is, with the 3 main words of "JUST WANT LOVE" along with a 
+As corny as it is, with the 3 most frequently used words of "JUST", "WANT", and "LOVE" adorns this album with some sort of a forthright desperation
+that is as rock in its candidness as it is sad in its, well desperation. 
+
+Looking into Zipfs Law provides a closer look into the making of this wordcloud.
 '
 
+##### Zipf's Law ####
 '
 Zipfs law states that the frequency that a word appears is inversely proportional to its rank
 '
-
 term_freq <- tidy_lyrics %>%
   dplyr::count(word, sort=TRUE) %>%
   dplyr::mutate(TotalWords = sum(n),
@@ -293,13 +243,11 @@ ggplot(plot_tfidf, aes(x = reorder(word, tf_idf), y = tf_idf, fill = title)) +
   labs(x = NULL, y = "TF-IDF")
 
 ##### Quantifying Sentiment ####
-
 '
 Join tidy_lyrics with lexicon of sad words
 '
 
 library(textdata)
-
 
 words <- tidytext::get_sentiments("nrc") 
 
@@ -337,3 +285,127 @@ library(scales)
 
 lyr_dens_df <- Sob_Rock_Album %>%
   dplyr::left_join(sentiments, by = c("name" = "title"))
+
+'###############################################################################'
+
+#### JM Songwriter ####
+library(tensorflow)
+library(reticulate)
+# install_tensorflow(version = "2.10.0")
+library(keras)
+library(purrr)
+
+# sobrock_lyrics as input
+lyrics <- unlist(sobrock_lyrics$lyrics)
+
+##### Preprocessing ####
+
+# Use Keras Preprocessing layers to teokenize the text and turn it into arrays of numbers to be used as input
+# Specify vocab size so tokenizer can map each word to a number from the lyrics
+vocab_size <- 5000
+oov_token <- "<OOV>"
+
+tokenizer <- text_tokenizer(num_words = vocab_size, oov_token = oov_token)
+fit_text_tokenizer(tokenizer, lyrics)
+word_index = tokenizer$word_index
+
+# transform the text into a sequence of integers
+sequences <- texts_to_sequences(tokenizer, lyrics)
+
+# n-gram sequences (could have also done this before when we unnest_tokens)
+n_gram_sequences <- c()
+
+# Let's use 
+for (line in sequences) {
+  for (index in 1:(length(line) - 7)) {
+    n_gram_sequences <- append(n_gram_sequences, list(line[index:(index+7)]))
+  }
+}
+
+length(n_gram_sequences)
+
+n_gram_sequences[1:7]
+
+# Need to find max length of any sequence and pad all other sequences to be the same length
+maxlen <- 0
+
+for (i in n_gram_sequences) {
+  if (length(i) > maxlen) {
+   maxlen <- length(i) 
+  }
+}
+
+padded <- keras::pad_sequences(n_gram_sequences, maxlen)
+
+# Now pad all sequences and set up labels
+# For any sequence, the label is the last word
+# So we can input one word and the model should learn the phrase that precedes it
+labels <- padded[, ncol(padded)]
+
+inputs <- padded[, (-ncol(padded))]
+
+# one-hot encode the labels in the context of the vocabulary
+encoded_labels <- keras::to_categorical(labels, num_classes = vocab_size)
+
+##### Building and Training the Model #### 
+'
+Sequential model with Embedding, Dense and LSTM layers. Embedding layers are very
+important for language and text models. 
+
+https://towardsdatascience.com/deep-learning-4-embedding-layers-f9a02d55ac12
+https://colah.github.io/posts/2015-08-Understanding-LSTMs/
+
+https://blog.paperspace.com/bidirectional-rnn-keras/#:~:text=A%20Bidirectional%20RNN%20is%20a,the%20beginning%20of%20a%20sequence.
+A Bidirectional RNN is a combination of two RNNs training the network in opposite
+directions, one from the beginning to the end of a sequence, and the other, from
+the end to the beginning of a sequence. 
+'
+
+model <- keras::keras_model_sequential()
+
+model %>%
+  layer_embedding(vocab_size, 64, input_length = maxlen-1) %>%
+  bidirectional(layer_lstm(units = 20)) %>%
+  layer_dense(units = vocab_size) %>%
+  layer_activation('softmax') 
+
+summary(model)
+
+model %>%
+  compile(optimizer = optimizer_adam(learning_rate = 0.05),
+          loss = 'categorical_crossentropy',
+          metrics = list('accuracy'))
+
+history <- model %>%
+  fit(inputs,
+      encoded_labels,
+      epoch = 100,
+      batch_size = 400,
+      verbose = 0)
+
+history
+
+
+model %>% evaluate(inputs, encoded_labels)
+
+plot(history)
+
+##### Generating Lyrics ####
+
+write_lyric <- function(seed_text, length = 7) {
+  for (i in 1:length + 1) {
+    token_list <- texts_to_sequences(tokenizer, list(seed_text))
+    padded <- pad_sequences(token_list, maxlen = maxlen - 1)
+    pred_probs <- model %>% predict(padded)
+    
+    output_arg <- sample(seq_len(length(pred_probs)), 1, prob = pred_probs)
+    
+    output_word <- names(word_index)[output_arg]
+    seed_text <- paste(seed_text, output_word)
+  }
+  return(seed_text)
+}
+
+write_lyric("just want love")
+
+write_lyric("I am")

@@ -242,15 +242,15 @@ cleanLyrics <-  function(url) {
                  gsub("([^ ])([A-Z])", "\\1 \\2", divs[1]), perl=TRUE)
   
   corpus = tm::VCorpus(VectorSource(lyrics)) %>%
-    tm::tm_map(tm::content_transformer(tolower)) %>%
+    tm::tm_map(stripWhitespace) %>%
     tm::tm_map(removeNumbers) %>% 
-    tm::tm_map(tm::content_transformer(replace_contraction)) %>%
     tm::tm_map(removePunctuation) %>%
+    tm::tm_map(tm::content_transformer(tolower)) %>%
+    tm::tm_map(tm::content_transformer(replace_contraction)) %>%
     tm::tm_map(removeWords, stopwords("english")) %>%
-    tm::tm_map(textstem::lemmatize_words) %>%
+    tm::tm_map(textstem::lemmatize_words) 
     # tm::tm_map(tm::content_transformer(wordStem)) %>%
     # tm::tm_map(stemDocument) %>%
-    tm::tm_map(stripWhitespace)
   
   dtm = tm::DocumentTermMatrix(corpus)
   
