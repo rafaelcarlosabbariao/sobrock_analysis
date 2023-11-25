@@ -20,6 +20,7 @@ source("functions.R")
 Sob_Rock_Album <- readRDS("sobrockalbum.rds")
 Other_JM_Albums <- readRDS("otherjmalbums.rds")
 Sob_Rock_Playlist <- readRDS("sobrockplaylist.rds")
+John_Mayer_Songs <- readRDS("john_mayer_songs.rds")
 # saveRDS(John_Mayer_Albums, "john_mayer_songs.rds")
 
 '###############################################################################'
@@ -73,13 +74,15 @@ while (i > 0) {
 # URL of Songs in SobRock Album
 sobrock_album_urls <- data.frame(title = character(),
                                  url = character(),
+                                 genre = character(),
                                  stringsAsFactors = FALSE)
 
 for (i in 1:length(track_lyric_urls)) {
   if (track_lyric_urls[[i]]$artist_names == "John Mayer") {
     if (track_lyric_urls[[i]]$title %in% Sob_Rock_Album$name) {
       df = data.frame(title = track_lyric_urls[[i]]$title,
-                      url = track_lyric_urls[[i]]$url)
+                      url = track_lyric_urls[[i]]$url,
+                      genre = "SobRock")
       
       sobrock_album_urls <- rbind(sobrock_album_urls, df)
     }
@@ -87,29 +90,138 @@ for (i in 1:length(track_lyric_urls)) {
 }
 
 # missing one song - Shouldn't Matter But it Does, ironically enough
-missing_song <- data.frame(title = track_lyric_urls[[274]]$title, 
-                           url = track_lyric_urls[[274]]$url)
+
+missing_song <- data.frame(title = character(),
+                           url = character(),
+                           genre = character(),
+                           stringsAsFactors = FALSE)
+
+for (i in 1:length(track_lyric_urls)) {
+  if (track_lyric_urls[[i]]$title == "Shouldn’t Matter but It Does") {
+    missing_song <- data.frame(title = track_lyric_urls[[i]]$title,
+                               url = track_lyric_urls[[i]]$url,
+                               genre = "SobRock")
+    print("Found it.")
+    sobrock_album_urls <- rbind(sobrock_album_urls, missing_song)
+  }
+}
 
 sobrock_album_urls <- rbind(sobrock_album_urls, missing_song)
 
-sobrock_album_urls$url <- as.character(sobrock_album_urls$url)
+# manually update these artist names that have punctuation
+Sob_Rock_Playlist[c(67, 70), ] <- mutate(Sob_Rock_Playlist[c(67, 70), ], artist = gsub('/', ' ', artist))
+
+# manually update these songs that has punctuation
+Sob_Rock_Playlist[c(15, 18), ] <- mutate(Sob_Rock_Playlist[c(15, 18), ], name = gsub(' - ', ' ', name))
 
 # URL of Songs in Sob Rock Playlist
 sobrock_playlist_urls <- Sob_Rock_Playlist %>%
-  dplyr::mutate(url = gsub('[[:punct:]]+', '', name)) %>%
-  dplyr::mutate(url = paste0("https://genius.com/", paste(.$artist, .$name, sep = "-"))) %>%
-  dplyr::mutate(url = str_replace_all(url, " - ", " ")) %>%
+  dplyr::mutate(artist = gsub('[[:punct:]]+', '', tolower(artist))) %>%  # remove punctuation from artist names like R.E.M. or Guns N' Roses
+  dplyr::mutate(url = gsub("'", '', name)) %>%  # remove apostrophe from contractions, possessives first
+  dplyr::mutate(url = gsub('\\(feat. .*)', '', tolower(url))) %>%  # remove any features in the name
+  dplyr::mutate(url = gsub(' - .*', '', url)) %>%  # remove extra text for different versions
+  dplyr::mutate(url = trimws(gsub('[[:punct:]]+', '', url))) %>%  # remove punctuation and trim white space 
+  dplyr::mutate(url = paste0("https://genius.com/", paste(.$artist, .$url, sep = "-"))) %>%
   dplyr::mutate(url = str_replace_all(url, " ", "-")) %>%
   dplyr::mutate(url = paste0(url, "-lyrics")) %>%
   dplyr::select(title = name, url, genre)
 
-# URL of Songs in other John Mayer Albums
-other_album_urls <- Other_JM_Albums %>%
-  dplyr::mutate(url = paste0("https://genius.com/", paste(.$artist, .$name, sep = "-"))) %>%
+# URL of Songs in other John Mayer Albums (excluding repeats and different versions, just keep album version)
+remove <- c(90, 102, 154, 122, 166, 126, 156, 182, 106, 111, 131, 140, 108, 128, 59, 35, 157, 89, 100, 104, 124, 85, 109, 129, 135, 121, 143, 92, 112, 132, 167, 82, 120, 107, 127, 50, 99, 118, 65, 91, 141, 66, 161, 164, 80, 119, 98, 185, 93, 113, 133, 47, 168, 138, 117, 183, 81, 105, 125, 134, 155, 96, 79, 94, 115, 101, 61, 87, 97, 136, 158, 116, 83, 137, 48, 63, 58, 60, 103, 139, 62, 162, 20, 86, 110, 130, 163, 114)
+remove <- sort(remove)
+other_album_urls <- Other_JM_Albums[-remove,]
+
+other_album_urls <- other_album_urls %>%
+  dplyr::mutate(url = gsub("'", '', tolower(name))) %>%
+  dplyr::mutate(url = gsub('\\(feat. .*)', '', url)) %>%
+  dplyr::mutate(url = gsub(' - .*', '', url)) %>%
+  dplyr::mutate(url = str_squish(gsub('[[:punct:]]+', '', url))) %>%
+  dplyr::mutate(url = paste0("https://genius.com/", paste(.$artist, .$url, sep = "-"))) %>%
   dplyr::mutate(url = str_replace_all(url, " ", "-")) %>%
+  dplyr::mutate(url = paste0(url, "-lyrics")) %>%
   dplyr::select(title = name, url, genre)
 
+# let's bind these but mark Sob Rock songs as different to see if they really are
+all_jm_songs <- rbind(other_album_urls, sobrock_album_urls)
+
 ##### Retrieve Lyrics from SobRock Album ####
+
+###### Apply getLyrics function #####
+
+# Sobrock album lyrics
+sobrock_album_urls <- sobrock_album_urls %>%
+  dplyr::mutate_at(c(1, 2), as.character)  # otherwise you get no applicable method error for read_xml to factor
+
+sobrock_lyrics <- stack(lapply(setNames(sobrock_album_urls$url, sobrock_album_urls$title), getLyrics)) %>%
+  select("title" = 2, "lyrics" = 1) %>%
+  mutate("genre" = sobrock_album_urls$genre)
+
+# # Sobrock playlist lyrics
+# sobrock_playlist_lyrics <- stack(lapply(setNames(sobrock_playlist_urls$url, sobrock_playlist_urls$title), getLyrics)) %>%
+#   select("title" = 2, "lyrics" = 1) %>%
+#   mutate("genre" = sobrock_playlist_urls$genre)
+# 
+# sobrock_playlist_lyrics <- data.frame(title = character(),
+#                                       lyrics = character(),
+#                                       genre = character(), 
+#                                       stringsAsFactors = FALSE)
+# 
+# for (i in 1:nrow(sobrock_playlist_urls)) {
+#   tryCatch({
+#     print(sobrock_playlist_urls$title[i])
+#     sobrock_playlist_lyrics[i, "title"] <- sobrock_playlist_urls$title[i]
+#     
+#     print(sobrock_playlist_urls$url[i])
+#     sobrock_playlist_lyrics[i, "lyrics"] <- getLyrics(sobrock_playlist_urls$url[i]) 
+#     
+#     print(sobrock_playlist_urls$genre[i])
+#     sobrock_playlist_lyrics[i, "genre"] <- sobrock_playlist_urls$genre[i]
+#   },
+#   error = function(e) {
+#     sobrock_playlist_lyrics[i, "title"] <- sobrock_playlist_urls$title[i]
+#     sobrock_playlist_lyrics[i, "lyrics"] <- "HTTP error 404"
+#     sobrock_playlist_lyrics[i, "genre"] <- sobrock_playlist_urls$genre[i]
+#   })
+# }
+# 
+# # JM lyrics
+# # try to compile all John Mayer song lyrics one by one, if error, just put "HTTP error 404"
+# jm_lyrics <- data.frame(title = character(),
+#                         lyrics = character(),
+#                         genre = character(), 
+#                         stringsAsFactors = FALSE)
+# 
+# for (i in 1:nrow(all_jm_songs)) {
+#   tryCatch({
+#     print(all_jm_songs$title[i])
+#     jm_lyrics[i, "title"] <- all_jm_songs$title[i]
+#     
+#     print(all_jm_songs$url[i])
+#     jm_lyrics[i, "lyrics"] <- getLyrics(all_jm_songs$url[i]) 
+#     
+#     print(all_jm_songs$genre[i])
+#     jm_lyrics[i, "genre"] <- all_jm_songs$genre[i]
+#   },
+#   error = function(e) {
+#     jm_lyrics[i, "title"] <- all_jm_songs$title[i]
+#     jm_lyrics[i, "lyrics"] <- "HTTP error 404"
+#     jm_lyrics[i, "genre"] <- all_jm_songs$genre[i]
+#   })
+# }
+# 
+# jm_lyrics <- jm_lyrics[complete.cases(jm_lyrics), ]
+
+
+# write.csv(sobrock_lyrics, "sobrock_album_lyrics.csv", row.names = FALSE)
+# write.csv(sobrock_playlist_lyrics, "sobrock_playlist_lyrics.csv", row.names = FALSE)
+# write.csv(jm_lyrics, "jm_vs_sobrock.csv", row.names = FALSE)
+
+sobrock_playlist_lyrics <- 
+
+###### Cleaning using tidytext, textclean ####
+library(tidytext) # for tidy NLP methods
+library(textclean) # for contractions
+library(wordcloud) 
 
 '
 Read this about lemmatization
@@ -138,22 +250,9 @@ Lemmatizing:
   - Options
     - wordnet::getLemma()
     - textstem::lemmatize_words() --> hash_lemmas
-'
 
-###### Apply getLyrics function #####
-sobrock_lyrics <- stack(lapply(setNames(sobrock_album_urls$url, sobrock_album_urls$title), getLyrics)) %>%
-  select("title" = 2, "lyrics" = 1)
+---
 
-# sobrock_lyrics <- stack(lapply(setNames(sobrock_album_urls$url, sobrock_album_urls$title), cleanLyrics))
-
-jm_lyrics <- lapply(setNames(other_album_urls$url, other_album_urls$title), getLyrics)
-
-###### Cleaning using tidytext, textclean ####
-library(tidytext) # for tidy NLP methods
-library(textclean) # for contractions
-library(wordcloud) 
-
-'
 tidytext::unnest_tokens()
 
 unnest_tokens splits a column of lyrics into tokens

@@ -279,6 +279,24 @@ ridgelineDF <- ridgelineDF %>%
                       names_to = "Feature",
                       values_to = "Value")
 
+'
+In Normalization, values are put to a [0,1] scale without distorting the differences in values.
+
+  - Used when performing some type of analysis in which we have multiple
+    variables that are measured on different scales and we want each of the 
+    variables to have the same range.
+
+  - This prevents one variable from being overly influential, esp if measured in different units. 
+
+In standardization, the data is assumed to be in a Gaussian distribution and measures the variable at different scales,
+making all the variables equally contribute to the analysis.
+
+  - We do this when we want to know how many standard deviations each value in a dataset lies from the mean.
+  
+  - Mean of 0. SD of 1.
+
+'
+
 ggplot(ridgelineDF, aes(x = Value, y = Feature, fill = genre)) + 
   geom_density_ridges()
 
@@ -457,3 +475,7 @@ ggplot(john_mayer_all, aes(x = valence, y = energy, color = genre)) +
   annotate('text', 0.25 / 2, 0.05, label = ":'(") +
   labs(x= "Valence", y= "Energy") +
   theme(plot.margin = margin(15,15,15,15))
+
+#------------------------------------------------------------------------------#
+
+#### Statistical Analysis - t-Test - Sob Rock vs. Other JM Albums####
