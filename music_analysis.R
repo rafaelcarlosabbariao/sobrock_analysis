@@ -269,7 +269,7 @@ boxplot
 
 #------------------------------------------------------------------------------#
 
-##### Ridgeline Plot (to display distribution of several numeric variables)
+##### Ridgeline Plot (to display distribution of several numeric variables) ##### 
 ridgelineDF <- dplyr::bind_rows(Sob_Rock_Album, Sob_Rock_Playlist)
 
 ridgelineDF <- ridgelineDF %>%
@@ -478,4 +478,144 @@ ggplot(john_mayer_all, aes(x = valence, y = energy, color = genre)) +
 
 #------------------------------------------------------------------------------#
 
-#### Statistical Analysis - t-Test - Sob Rock vs. Other JM Albums####
+#### Statistical Analysis - ANOVA - Sob Rock Album vs. Sob Rock Playlist ####
+
+# "Are the genres different?" 
+# To compare three groups or more (SobRock, Sob, Rock) means, an ANOVA should be performed
+# https://statsandr.com/blog/how-to-do-a-t-test-or-anova-for-many-variables-at-once-in-r-and-communicate-the-results-in-a-better-way/
+# Need to be careful when working on multiple variables - issue ofe multiple testing (multiplicity)
+# Need to rely on Bonferroni correction where p-value is a / m (where a is significance level and m is number of t-tests/features)
+
+##### t-test of Sob Rock album and Sob Rock playlist ####
+library(ggpubr)
+
+sob_rock_t_test <- sob_rock_all %>%
+  mutate(genre = ifelse(genre == "SobRock", "Album", "Playlist"))
+
+x <- which(names(sob_rock_t_test) == "genre")
+
+y <- which(names(sob_rock_t_test) == "acousticness" |
+             names(sob_rock_t_test) == "danceability" |
+             names(sob_rock_t_test) == "energy" |
+             names(sob_rock_t_test) == "liveliness" |
+             names(sob_rock_t_test) == "loudness" |
+             names(sob_rock_t_test) == "speechiness" |
+             names(sob_rock_t_test) == "valence" |
+             names(sob_rock_t_test) == "tempo")
+
+# Plot each genre against each feature and determine p-value
+for (i in y) {
+  for (j in x) {
+    p <- ggboxplot(sob_rock_t_test,
+                   x = colnames(sob_rock_t_test[j]),
+                   y = colnames(sob_rock_t_test[i]),
+                   color = colnames(sob_rock_t_test[j]),
+                   legend = "none",
+                   palette = "npg",
+                   add = "jitter")
+    
+    print(p + stat_compare_means(aes(label = paste0(after_stat(method),
+                                                    ", p-value = ",
+                                                    after_stat(p.format))),
+                                 method = "t.test",
+                                 paired = FALSE,
+                                 ref.group = NULL))
+  }
+}
+
+# Ideally, none of the p-values should be significant but fails in "Speechiness", "Liveliness", "Danceability" 
+
+##### ANOVA of Sob Rock, Sob, and Rock ####
+library(ggpubr)
+
+x <- which(names(sob_rock_all) == "genre")
+
+y <- which(names(sob_rock_all) == "acousticness" |
+                          names(sob_rock_all) == "danceability" |
+                          names(sob_rock_all) == "energy" |
+                          names(sob_rock_all) == "liveliness" |
+                          names(sob_rock_all) == "loudness" |
+                          names(sob_rock_all) == "speechiness" |
+                          names(sob_rock_all) == "valence" |
+                          names(sob_rock_all) == "tempo")
+
+genres <- unique(sob_rock_all$genre)
+
+# Get all pairwise combinations of genres
+combinations <- combn(genres, 2)
+
+# Convert each column of the combinations matrix to a vector
+my_comparisons <- lapply(seq_len(ncol(combinations)), function(i) combinations[, i])
+
+# Plot each genre against each feature and determine p-value
+for (i in y) {
+  for (j in x) {
+    p <- ggboxplot(sob_rock_all,
+                   x = colnames(sob_rock_all[j]),
+                   y = colnames(sob_rock_all[i]),
+                   color = colnames(sob_rock_all[j]),
+                   legend = "none",
+                   palette = "npg",
+                   add = "jitter")
+
+    print(p + stat_compare_means(aes(label = paste0(after_stat(method),
+                                                    ", p-value = ",
+                                                    after_stat(p.format))),
+                                 method = "anova",
+                                 label.y = max(sob_rock_all[, i], na.rm = TRUE))
+
+          + stat_compare_means(comparisons = my_comparisons,
+                               method = "t.test",
+                               label = "p.format")
+          )
+  }
+}
+
+# We aren't necessarily comparing the three different genres, just where Sob Rock falls among sad songs and rock songs
+
+#------------------------------------------------------------------------------#
+
+
+#### Statistical Analysis - t-Test - Sob Rock Album vs. Other JM Albums ####
+
+# Sob Rock was an attempt to bridge away from the "John Mayer" sound but how different is it really? 
+
+library(ggpubr)
+
+x <- which(names(john_mayer_all) == "genre")
+
+y <- which(names(john_mayer_all) == "acousticness" |
+             names(john_mayer_all) == "danceability" |
+             names(john_mayer_all) == "energy" |
+             names(john_mayer_all) == "liveliness" |
+             names(john_mayer_all) == "loudness" |
+             names(john_mayer_all) == "speechiness" |
+             names(john_mayer_all) == "valence" |
+             names(john_mayer_all) == "tempo")
+
+# method <- "t.test"
+# paired = FALSE
+
+
+# Plot each genre against each feature and determine p-value
+for (i in y) {
+  for (j in x) {
+    p <- ggboxplot(john_mayer_all,
+                   x = colnames(john_mayer_all[j]),
+                   y = colnames(john_mayer_all[i]),
+                   color = colnames(john_mayer_all[j]),
+                   legend = "none",
+                   palette = "npg",
+                   add = "jitter") +
+      stat_compare_means(aes(label = paste0(after_stat(method),
+                                                    ", p-value = ",
+                                                    after_stat(p.format))),
+                         method = "t.test",
+                         paired = FALSE, 
+                         ref.group = NULL)
+    
+    print(p)
+  }
+}
+
+# Speechiness, liveliness, danceability are quite different 
