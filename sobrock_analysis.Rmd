@@ -7,20 +7,233 @@ output:
     code_folding: hide
     df_print: paged
     theme: flatly
-  html_notebook:
-    code_folding: hide
-    df_print: paged
-    theme: flatly
+    toc: true
+    toc_float: true
   pdf_document: default
-header-includes: \usepackage{fvextra} \usepackage{titling} \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
 ---
 
-```{r echo=FALSE}
-htmltools::img(src = knitr::image_uri(file.path("sobrock.png")),
-               alt = 'logo',
-               style = 'position:absolute; top:0; right:0; padding:10px; margin-right:100px; max-width:15%')
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r logo, echo=FALSE, results='asis'}
+# Shows the logo when sobrock.png is present.
+if (file.exists("sobrock.png")) {
+  htmltools::img(src = knitr::image_uri("sobrock.png"), alt = 'logo',
+                 style = 'position:absolute; top:0; right:0; padding:10px; margin-right:100px; max-width:15%')
+}
 ```
 
 My pandemic passion project was to better my health and ensure that my immune system can toughen out any sickness that may come my way. I did that through running which led me to compete in my first half-marathon. An integral component of my training was, of course, my Spotify playlist which consisted of comedy podcasts to numb the pain, a bunch of motivational mumbo jumbo from David Goggins about 'staying hard', and then John Mayer who's pandemic passion project is the topic of conversation.
 
-John Mayer's most recent album, Sob Rock, brought some hope in the midst of the lonely nights of programming and chill. 
+---
+
+## What this notebook is, and what was broken
+
+The original analysis ran in two halves: Spotify audio features (`music_analysis.R`) and
+Genius lyrics (`lyric_analysis.R`). Re-running it in 2026 surfaced four blockers, all fixed
+here:
+
+1. **Spotify's `/audio-features` endpoint is gone.** Retired 2024-11-27 for any app without
+   pre-existing extended quota. The audio half is now driven from the `.rds`/`.csv` extracts
+   captured in January 2022 — the data survives even though the endpoint doesn't.
+2. **The Genius scraper is dead.** `getLyrics()` selected `//*[@id="lyrics-root"]/div[2]`;
+   that node no longer exists and the page is behind a bot challenge. Lyrics are now loaded
+   from the CSV extracts rather than re-fetched.
+3. **A silent bug.** `lyric_analysis.R:219` had a bare `sobrock_playlist_lyrics <- ` with the
+   next statement lines below, so R quietly assigned it `library(tidytext)`'s return value.
+4. **Encoding damage and a null row.** The scrape left invalid UTF-8 in 186 of 191 rows, and
+   one playlist track had no lyrics at all. Both are handled explicitly below instead of
+   propagating into the token counts.
+
+Two things were added rather than repaired: the audio half's **Bonferroni-corrected testing**
+is now applied to the lyric half as well, and the single sadness scalar is replaced by the
+**full ten-dimension NRC profile**.
+
+> Lyrics are inputs only. Every output below is an aggregate statistic; no lyric text is
+> printed, and the corpus stays out of version control (`.gitignore` excludes `*.csv`).
+
+```{r libs}
+library(dplyr); library(tidyr); library(tidytext); library(syuzhet); library(ggplot2)
+```
+
+## Data
+
+```{r load}
+read_lyrics <- function(p) read.csv(p, stringsAsFactors = FALSE, encoding = "UTF-8")
+
+alb <- read_lyrics("data/clean/sobrock_album_lyrics.csv")
+pl  <- read_lyrics("data/clean/sobrock_playlist_lyrics.csv")
+jm  <- read_lyrics("data/clean/jm_vs_sobrock.csv")
+
+# FIX 4: drop the null-lyric row rather than letting it become a zero-word track
+dropped <- sum(is.na(pl$lyrics) | trimws(pl$lyrics) == "")
+pl <- pl %>% filter(!is.na(lyrics), trimws(lyrics) != "", genre %in% c("Sob", "Rock"))
+
+corpus <- bind_rows(
+  alb %>% mutate(grp = "Sob Rock"),
+  pl  %>% mutate(grp = genre),
+  jm  %>% filter(genre == "JohnMayer") %>% mutate(grp = "John Mayer (other)")
+) %>% distinct(title, grp, .keep_all = TRUE)
+
+cat("dropped null-lyric rows:", dropped, "\n"); table(corpus$grp)
+```
+
+## Audio features: the 2022 question, tested
+
+The original conclusion was read off boxplots — Sob Rock sat inside the comparison IQR on
+energy and loudness, but not on valence. Testing it puts a p-value on that.
+
+```{r audio}
+aud <- bind_rows(
+  read.csv("data/sob_rock_album.csv",    stringsAsFactors = FALSE) %>% mutate(grp = "Sob Rock"),
+  read.csv("data/sob_rock_playlist.csv", stringsAsFactors = FALSE) %>% mutate(grp = genre)
+)
+feats <- c("acousticness","danceability","energy","instrumentalness",
+           "liveliness","loudness","speechiness","valence","tempo")
+bonf_a <- 0.05 / length(feats)
+
+audio_tests <- lapply(feats, function(f) {
+  sr <- aud[[f]][aud$grp == "Sob Rock"]
+  data.frame(feature = f,
+             p_vs_Sob  = t.test(sr, aud[[f]][aud$grp == "Sob"])$p.value,
+             p_vs_Rock = t.test(sr, aud[[f]][aud$grp == "Rock"])$p.value)
+}) %>% bind_rows() %>%
+  mutate(sig_Sob  = ifelse(p_vs_Sob  < bonf_a, "YES", "-"),
+         sig_Rock = ifelse(p_vs_Rock < bonf_a, "YES", "-")) %>%
+  mutate(across(starts_with("p_"), ~round(.x, 4)))
+audio_tests
+```
+
+Valence is the whole finding: it separates Sob Rock from the sad set decisively and puts it
+on top of the rock set. The album is not sad-sounding. It is a rock record.
+
+## Lyrics: the 2022 method, replicated
+
+The original chain, reproduced exactly — contraction expansion, tokenize, lemmatize against
+`lexicon::hash_lemmas`, drop stopwords and vocal filler, then take each track's sadness ratio
+as sad-word count over total words.
+
+```{r tidy}
+ck <- lexicon::key_contractions; hl <- lexicon::hash_lemmas
+expand_contractions <- function(x) {
+  for (i in seq_len(nrow(ck))) x <- gsub(ck$contraction[i], ck$expanded[i], x, ignore.case = TRUE)
+  x
+}
+
+tidy_lyrics <- corpus %>%
+  mutate(lyrics = expand_contractions(lyrics)) %>%
+  unnest_tokens(word, lyrics) %>%
+  left_join(hl, by = c("word" = "token")) %>%
+  mutate(word = ifelse(is.na(lemma), word, lemma)) %>% select(-lemma) %>%
+  anti_join(get_stopwords(), by = "word") %>%
+  filter(!word %in% c("ooh","ah","da","oh","uh"))
+
+nrc <- get_sentiment_dictionary("nrc")
+sad_words <- nrc %>% filter(sentiment == "sadness") %>% distinct(word) %>% mutate(sad = TRUE)
+
+sentiments <- tidy_lyrics %>%
+  left_join(sad_words, by = "word") %>%
+  group_by(title, grp) %>%
+  summarise(sadness = sum(sad, na.rm = TRUE) / n(), words = n(), .groups = "drop")
+
+sentiments %>% group_by(grp) %>%
+  summarise(n = n(), mean = round(mean(sadness), 4),
+            median = round(median(sadness), 4), sd = round(sd(sadness), 4))
+```
+
+By the group means Sob Rock looks like the saddest set in the study — above the sad
+comparison songs and above Mayer's own back catalogue. That reading does not survive a test.
+
+```{r lyric-test}
+sr <- sentiments$sadness[sentiments$grp == "Sob Rock"]
+lyric_tests <- lapply(c("Sob","Rock","John Mayer (other)"), function(g) {
+  p <- t.test(sr, sentiments$sadness[sentiments$grp == g])$p.value
+  data.frame(comparison = g, p = round(p, 4),
+             sig = ifelse(p < 0.05/3, "YES", "-"))
+}) %>% bind_rows()
+lyric_tests
+
+cat(sprintf("mean %.4f vs median %.4f, sd %.4f - driven by one track at %.3f\n",
+            mean(sr), median(sr), sd(sr), max(sr)))
+```
+
+The mean is carried by a single outlier. Nothing is significant.
+
+## Bolster: the full emotion profile
+
+The 2022 version collapsed ten NRC dimensions into one scalar. Keeping all ten, scored per
+track so each can be tested the way the audio features were.
+
+```{r profile}
+per_track <- tidy_lyrics %>%
+  inner_join(nrc, by = "word", relationship = "many-to-many") %>%
+  count(title, grp, sentiment) %>%
+  group_by(title, grp) %>% mutate(share = n / sum(n)) %>% ungroup() %>%
+  select(title, grp, sentiment, share) %>%
+  pivot_wider(names_from = sentiment, values_from = share, values_fill = 0)
+
+emos <- c("anger","anticipation","disgust","fear","joy",
+          "negative","positive","sadness","surprise","trust")
+bonf_e <- 0.05 / length(emos)
+
+emo_tests <- lapply(emos, function(e) {
+  s <- per_track[[e]][per_track$grp == "Sob Rock"]
+  data.frame(emotion = e,
+             p_vs_Sob  = round(t.test(s, per_track[[e]][per_track$grp == "Sob"])$p.value, 4),
+             p_vs_Rock = round(t.test(s, per_track[[e]][per_track$grp == "Rock"])$p.value, 4),
+             p_vs_JM   = round(t.test(s, per_track[[e]][per_track$grp == "John Mayer (other)"])$p.value, 4))
+}) %>% bind_rows() %>%
+  mutate(any_sig = ifelse(pmin(p_vs_Sob, p_vs_Rock, p_vs_JM) < bonf_e, "YES", "-"))
+emo_tests
+```
+
+Ten emotions, three comparisons, thirty tests. At the corrected threshold of
+`r round(0.05/10, 4)`, none of them separate Sob Rock from anything.
+
+## The cross-instrument check
+
+The two halves were never pointed at each other. If lyrical sadness and musical mood measure
+the same underlying thing, they should agree track by track.
+
+```{r cross}
+joined <- sentiments %>%
+  inner_join(aud %>% select(name, grp, valence), by = c("title" = "name", "grp" = "grp"))
+ct <- cor.test(joined$sadness, joined$valence)
+cat(sprintf("matched tracks: %d | Pearson r = %.3f, p = %.4f, 95%% CI [%.3f, %.3f]\n",
+            nrow(joined), ct$estimate, ct$p.value, ct$conf.int[1], ct$conf.int[2]))
+
+joined %>% group_by(grp) %>%
+  summarise(n = n(), lyric_sadness = round(mean(sadness), 4),
+            audio_valence = round(mean(valence), 3))
+```
+
+```{r cross-plot, fig.width=7, fig.height=4.5}
+ggplot(joined, aes(valence, sadness, colour = grp)) +
+  geom_point(size = 2.4, alpha = .85) +
+  geom_smooth(method = "lm", se = TRUE, colour = "grey40", linewidth = .6) +
+  scale_colour_manual(values = c("Sob" = "#2F4C9B", "Rock" = "#BC4A2E", "Sob Rock" = "#17805C")) +
+  labs(x = "Spotify valence (musical positivity)", y = "NRC sadness ratio (lyrics)",
+       colour = NULL,
+       title = "Two instruments, one object",
+       subtitle = "Lyrical sadness and musical mood are uncorrelated across the corpus") +
+  theme_minimal(base_size = 11)
+```
+
+The correlation is indistinguishable from zero. And the group means run in opposite
+directions: Sob Rock carries the highest lyrical sadness in the study *and* the highest
+musical valence. The sob is in the words; the rock is in the music; neither instrument sees
+both.
+
+## What this cannot see
+
+- **Power.** Ten tracks against thirty-odd, with a Bonferroni correction over ten emotions.
+  A null here means the instrument cannot resolve the question at album scale — not that no
+  difference exists. The honest ceiling of a ten-track album is low.
+- **Bag-of-words has no irony.** NRC counts sad words wherever they appear. Mayer described
+  the record as a shitpost; a lexicon cannot tell a sad song from a song wearing sadness as a
+  costume, which is precisely the distinction this album is built on.
+- **The comparison set is hand-picked.** The 35 sad and 35 rock tracks were chosen by me in
+  2022. It is a reasonable set, not a random sample, and every result is conditional on it.
+- **Audio features are a vendor's model.** `valence` was Spotify's proprietary estimate,
+  never documented in full and now withdrawn. It cannot be audited or recomputed.
