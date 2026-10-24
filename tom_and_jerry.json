@@ -1,0 +1,114 @@
+{
+  "words": 143,
+  "sadness": 0.042,
+  "sadness_percentile": {
+    "Sob Rock": 0.3,
+    "Sob": 0.3429,
+    "Rock": 0.4545,
+    "John Mayer (other)": 0.5743
+  },
+  "group_median": [
+    {
+      "grp": "John Mayer (other)",
+      "mean": 0.0445,
+      "median": 0.0353
+    },
+    {
+      "grp": "Rock",
+      "mean": 0.053,
+      "median": 0.0453
+    },
+    {
+      "grp": "Sob",
+      "mean": 0.0601,
+      "median": 0.0533
+    },
+    {
+      "grp": "Sob Rock",
+      "mean": 0.0713,
+      "median": 0.0516
+    }
+  ],
+  "emotions": [
+    {
+      "emotion": "anger",
+      "tj": 0.0247,
+      "jm": 0.0462,
+      "sobrock": 0.0894,
+      "pct_jm": 0.3465,
+      "pct_sobrock": 0
+    },
+    {
+      "emotion": "anticipation",
+      "tj": 0.1111,
+      "jm": 0.1172,
+      "sobrock": 0.0529,
+      "pct_jm": 0.5842,
+      "pct_sobrock": 0.9
+    },
+    {
+      "emotion": "disgust",
+      "tj": 0.0247,
+      "jm": 0.0342,
+      "sobrock": 0.0384,
+      "pct_jm": 0.4554,
+      "pct_sobrock": 0.3
+    },
+    {
+      "emotion": "fear",
+      "tj": 0.0864,
+      "jm": 0.0848,
+      "sobrock": 0.0833,
+      "pct_jm": 0.6535,
+      "pct_sobrock": 0.7
+    },
+    {
+      "emotion": "joy",
+      "tj": 0.1728,
+      "jm": 0.1216,
+      "sobrock": 0.1076,
+      "pct_jm": 0.8218,
+      "pct_sobrock": 0.9
+    },
+    {
+      "emotion": "negative",
+      "tj": 0.1358,
+      "jm": 0.1457,
+      "sobrock": 0.1865,
+      "pct_jm": 0.4752,
+      "pct_sobrock": 0.2
+    },
+    {
+      "emotion": "positive",
+      "tj": 0.1975,
+      "jm": 0.1855,
+      "sobrock": 0.1525,
+      "pct_jm": 0.5743,
+      "pct_sobrock": 0.8
+    },
+    {
+      "emotion": "sadness",
+      "tj": 0.0741,
+      "jm": 0.086,
+      "sobrock": 0.1205,
+      "pct_jm": 0.5248,
+      "pct_sobrock": 0.2
+    },
+    {
+      "emotion": "surprise",
+      "tj": 0.0617,
+      "jm": 0.0725,
+      "sobrock": 0.0908,
+      "pct_jm": 0.4158,
+      "pct_sobrock": 0.2
+    },
+    {
+      "emotion": "trust",
+      "tj": 0.1111,
+      "jm": 0.1064,
+      "sobrock": 0.0783,
+      "pct_jm": 0.6238,
+      "pct_sobrock": 0.8
+    }
+  ]
+}

@@ -1,0 +1,2573 @@
+{
+  "counts": {
+    "John Mayer (other)": 101,
+    "Rock": 33,
+    "Sob": 35,
+    "Sob Rock": 10
+  },
+  "bonf_audio": 0.00556,
+  "bonf_lyric": 0.01667,
+  "bonf_emo": 0.005,
+  "audio_tests": [
+    {
+      "feature": "acousticness",
+      "mean_sobrock": 0.28896,
+      "mean_sob": 0.6196,
+      "mean_rock": 0.09358,
+      "p_vs_sob": 0.00039,
+      "p_vs_rock": 0.01174
+    },
+    {
+      "feature": "danceability",
+      "mean_sobrock": 0.6712,
+      "mean_sob": 0.49826,
+      "mean_rock": 0.51063,
+      "p_vs_sob": 0.00118,
+      "p_vs_rock": 0.00212
+    },
+    {
+      "feature": "energy",
+      "mean_sobrock": 0.5748,
+      "mean_sob": 0.33647,
+      "mean_rock": 0.80169,
+      "p_vs_sob": 0.00045,
+      "p_vs_rock": 0.00069
+    },
+    {
+      "feature": "instrumentalness",
+      "mean_sobrock": 0.17779,
+      "mean_sob": 0.01938,
+      "mean_rock": 0.03108,
+      "p_vs_sob": 0.13549,
+      "p_vs_rock": 0.16413
+    },
+    {
+      "feature": "liveliness",
+      "mean_sobrock": 0.10245,
+      "mean_sob": 0.15305,
+      "mean_rock": 0.17872,
+      "p_vs_sob": 0.04655,
+      "p_vs_rock": 0.008
+    },
+    {
+      "feature": "loudness",
+      "mean_sobrock": -8.39,
+      "mean_sob": -10.71877,
+      "mean_rock": -6.40857,
+      "p_vs_sob": 0.00424,
+      "p_vs_rock": 0.00577
+    },
+    {
+      "feature": "speechiness",
+      "mean_sobrock": 0.02823,
+      "mean_sob": 0.04498,
+      "mean_rock": 0.05572,
+      "p_vs_sob": 0.00519,
+      "p_vs_rock": 5.48653e-08
+    },
+    {
+      "feature": "valence",
+      "mean_sobrock": 0.5901,
+      "mean_sob": 0.25228,
+      "mean_rock": 0.60031,
+      "p_vs_sob": 0.00335,
+      "p_vs_rock": 0.91478
+    },
+    {
+      "feature": "tempo",
+      "mean_sobrock": 112.6833,
+      "mean_sob": 109.9616,
+      "mean_rock": 122.94049,
+      "p_vs_sob": 0.75895,
+      "p_vs_rock": 0.24514
+    }
+  ],
+  "audio_points": [
+    {
+      "title": "Last Train Home",
+      "grp": "Sob Rock",
+      "energy": 0.831,
+      "valence": 0.678,
+      "loudness": -6.612,
+      "danceability": 0.591,
+      "acousticness": 0.235,
+      "tempo": 93.007
+    },
+    {
+      "title": "Shouldn't Matter but It Does",
+      "grp": "Sob Rock",
+      "energy": 0.324,
+      "valence": 0.268,
+      "loudness": -11.769,
+      "danceability": 0.549,
+      "acousticness": 0.457,
+      "tempo": 80.888
+    },
+    {
+      "title": "New Light",
+      "grp": "Sob Rock",
+      "energy": 0.694,
+      "valence": 0.852,
+      "loudness": -7.862,
+      "danceability": 0.826,
+      "acousticness": 0.316,
+      "tempo": 123.932
+    },
+    {
+      "title": "Why You No Love Me",
+      "grp": "Sob Rock",
+      "energy": 0.562,
+      "valence": 0.501,
+      "loudness": -7.315,
+      "danceability": 0.635,
+      "acousticness": 0.387,
+      "tempo": 97.988
+    },
+    {
+      "title": "Wild Blue",
+      "grp": "Sob Rock",
+      "energy": 0.596,
+      "valence": 0.876,
+      "loudness": -8.989,
+      "danceability": 0.816,
+      "acousticness": 0.557,
+      "tempo": 123.027
+    },
+    {
+      "title": "Shot in the Dark",
+      "grp": "Sob Rock",
+      "energy": 0.556,
+      "valence": 0.587,
+      "loudness": -9.184,
+      "danceability": 0.741,
+      "acousticness": 0.0629,
+      "tempo": 122.008
+    },
+    {
+      "title": "I Guess I Just Feel Like",
+      "grp": "Sob Rock",
+      "energy": 0.483,
+      "valence": 0.166,
+      "loudness": -9.102,
+      "danceability": 0.548,
+      "acousticness": 0.515,
+      "tempo": 159.952
+    },
+    {
+      "title": "Til the Right One Comes",
+      "grp": "Sob Rock",
+      "energy": 0.563,
+      "valence": 0.925,
+      "loudness": -8.996,
+      "danceability": 0.807,
+      "acousticness": 0.242,
+      "tempo": 112.985
+    },
+    {
+      "title": "Carry Me Away",
+      "grp": "Sob Rock",
+      "energy": 0.713,
+      "valence": 0.744,
+      "loudness": -6.626,
+      "danceability": 0.677,
+      "acousticness": 0.0117,
+      "tempo": 119.997
+    },
+    {
+      "title": "All I Want Is to Be With You",
+      "grp": "Sob Rock",
+      "energy": 0.426,
+      "valence": 0.304,
+      "loudness": -7.445,
+      "danceability": 0.522,
+      "acousticness": 0.106,
+      "tempo": 93.049
+    },
+    {
+      "title": "Tears in Heaven",
+      "grp": "Sob",
+      "energy": 0.242,
+      "valence": 0.312,
+      "loudness": -12.238,
+      "danceability": 0.498,
+      "acousticness": 0.835,
+      "tempo": 153.744
+    },
+    {
+      "title": "I Can't Make You Love Me",
+      "grp": "Sob",
+      "energy": 0.149,
+      "valence": 0.113,
+      "loudness": -16.728,
+      "danceability": 0.588,
+      "acousticness": 0.846,
+      "tempo": 124.689
+    },
+    {
+      "title": "Mad World (Feat. Michael Andrews)",
+      "grp": "Sob",
+      "energy": 0.0581,
+      "valence": 0.304,
+      "loudness": -17.217,
+      "danceability": 0.345,
+      "acousticness": 0.976,
+      "tempo": 174.117
+    },
+    {
+      "title": "when the party's over",
+      "grp": "Sob",
+      "energy": 0.111,
+      "valence": 0.198,
+      "loudness": -14.084,
+      "danceability": 0.367,
+      "acousticness": 0.978,
+      "tempo": 82.642
+    },
+    {
+      "title": "My Immortal",
+      "grp": "Sob",
+      "energy": 0.265,
+      "valence": 0.101,
+      "loudness": -9.206,
+      "danceability": 0.19,
+      "acousticness": 0.863,
+      "tempo": 79.012
+    },
+    {
+      "title": "I Will Remember You",
+      "grp": "Sob",
+      "energy": 0.353,
+      "valence": 0.179,
+      "loudness": -11.484,
+      "danceability": 0.606,
+      "acousticness": 0.763,
+      "tempo": 140.057
+    },
+    {
+      "title": "What Hurts The Most",
+      "grp": "Sob",
+      "energy": 0.674,
+      "valence": 0.33,
+      "loudness": -5.134,
+      "danceability": 0.537,
+      "acousticness": 0.0088,
+      "tempo": 136.002
+    },
+    {
+      "title": "The Blower's Daughter",
+      "grp": "Sob",
+      "energy": 0.2,
+      "valence": 0.0743,
+      "loudness": -13.569,
+      "danceability": 0.342,
+      "acousticness": 0.134,
+      "tempo": 133.113
+    },
+    {
+      "title": "Dreaming with a Broken Heart",
+      "grp": "Sob",
+      "energy": 0.349,
+      "valence": 0.155,
+      "loudness": -9.321,
+      "danceability": 0.61,
+      "acousticness": 0.554,
+      "tempo": 136.012
+    },
+    {
+      "title": "Everybody Hurts",
+      "grp": "Sob",
+      "energy": 0.324,
+      "valence": 0.166,
+      "loudness": -10.451,
+      "danceability": 0.467,
+      "acousticness": 0.615,
+      "tempo": 94.301
+    },
+    {
+      "title": "When We Were Young",
+      "grp": "Sob",
+      "energy": 0.595,
+      "valence": 0.265,
+      "loudness": -5.936,
+      "danceability": 0.376,
+      "acousticness": 0.303,
+      "tempo": 144.361
+    },
+    {
+      "title": "Somebody Else",
+      "grp": "Sob",
+      "energy": 0.788,
+      "valence": 0.472,
+      "loudness": -5.724,
+      "danceability": 0.61,
+      "acousticness": 0.195,
+      "tempo": 101.045
+    },
+    {
+      "title": "26",
+      "grp": "Sob",
+      "energy": 0.286,
+      "valence": 0.409,
+      "loudness": -10.917,
+      "danceability": 0.561,
+      "acousticness": 0.852,
+      "tempo": 90.004
+    },
+    {
+      "title": "Make You Feel My Love",
+      "grp": "Sob",
+      "energy": 0.172,
+      "valence": 0.0963,
+      "loudness": -10.636,
+      "danceability": 0.317,
+      "acousticness": 0.907,
+      "tempo": 65.18
+    },
+    {
+      "title": "ILYSB - STRIPPED",
+      "grp": "Sob",
+      "energy": 0.393,
+      "valence": 0.165,
+      "loudness": -8.199,
+      "danceability": 0.661,
+      "acousticness": 0.546,
+      "tempo": 83.851
+    },
+    {
+      "title": "River",
+      "grp": "Sob",
+      "energy": 0.152,
+      "valence": 0.383,
+      "loudness": -13.901,
+      "danceability": 0.405,
+      "acousticness": 0.979,
+      "tempo": 61.34
+    },
+    {
+      "title": "Slow Burn",
+      "grp": "Sob",
+      "energy": 0.43,
+      "valence": 0.274,
+      "loudness": -9.105,
+      "danceability": 0.555,
+      "acousticness": 0.462,
+      "tempo": 147.613
+    },
+    {
+      "title": "hope is a dangerous thing for a woman like me to have - but I have it",
+      "grp": "Sob",
+      "energy": 0.104,
+      "valence": 0.278,
+      "loudness": -13.208,
+      "danceability": 0.49,
+      "acousticness": 0.964,
+      "tempo": 86.675
+    },
+    {
+      "title": "Self Care",
+      "grp": "Sob",
+      "energy": 0.538,
+      "valence": 0.177,
+      "loudness": -8.109,
+      "danceability": 0.52,
+      "acousticness": 0.367,
+      "tempo": 141.894
+    },
+    {
+      "title": "Purple Rain",
+      "grp": "Sob",
+      "energy": 0.452,
+      "valence": 0.189,
+      "loudness": -10.422,
+      "danceability": 0.367,
+      "acousticness": 0.0353,
+      "tempo": 113.066
+    },
+    {
+      "title": "Someone Like You",
+      "grp": "Sob",
+      "energy": 0.319,
+      "valence": 0.294,
+      "loudness": -8.251,
+      "danceability": 0.556,
+      "acousticness": 0.893,
+      "tempo": 135.187
+    },
+    {
+      "title": "Skinny Love",
+      "grp": "Sob",
+      "energy": 0.263,
+      "valence": 0.109,
+      "loudness": -14.029,
+      "danceability": 0.593,
+      "acousticness": 0.844,
+      "tempo": 76.379
+    },
+    {
+      "title": "Drew Barrymore",
+      "grp": "Sob",
+      "energy": 0.523,
+      "valence": 0.29,
+      "loudness": -5.538,
+      "danceability": 0.577,
+      "acousticness": 0.491,
+      "tempo": 134.93
+    },
+    {
+      "title": "Fix You",
+      "grp": "Sob",
+      "energy": 0.417,
+      "valence": 0.124,
+      "loudness": -8.74,
+      "danceability": 0.209,
+      "acousticness": 0.164,
+      "tempo": 138.178
+    },
+    {
+      "title": "When I Was Your Man",
+      "grp": "Sob",
+      "energy": 0.28,
+      "valence": 0.387,
+      "loudness": -8.648,
+      "danceability": 0.612,
+      "acousticness": 0.932,
+      "tempo": 72.795
+    },
+    {
+      "title": "Marvins Room",
+      "grp": "Sob",
+      "energy": 0.26,
+      "valence": 0.312,
+      "loudness": -17.341,
+      "danceability": 0.492,
+      "acousticness": 0.646,
+      "tempo": 111.519
+    },
+    {
+      "title": "Fast Car",
+      "grp": "Sob",
+      "energy": 0.292,
+      "valence": 0.194,
+      "loudness": -15.523,
+      "danceability": 0.711,
+      "acousticness": 0.313,
+      "tempo": 103.951
+    },
+    {
+      "title": "What Sarah Said",
+      "grp": "Sob",
+      "energy": 0.439,
+      "valence": 0.0401,
+      "loudness": -9.952,
+      "danceability": 0.505,
+      "acousticness": 0.801,
+      "tempo": 134.194
+    },
+    {
+      "title": "I Will Follow You into the Dark",
+      "grp": "Sob",
+      "energy": 0.206,
+      "valence": 0.489,
+      "loudness": -12.233,
+      "danceability": 0.517,
+      "acousticness": 0.924,
+      "tempo": 80.401
+    },
+    {
+      "title": "People Get Old",
+      "grp": "Sob",
+      "energy": 0.446,
+      "valence": 0.45,
+      "loudness": -10.69,
+      "danceability": 0.619,
+      "acousticness": 0.216,
+      "tempo": 80.955
+    },
+    {
+      "title": "Blackstar",
+      "grp": "Sob",
+      "energy": 0.552,
+      "valence": 0.114,
+      "loudness": -8.35,
+      "danceability": 0.366,
+      "acousticness": 0.206,
+      "tempo": 97.98
+    },
+    {
+      "title": "Go Home",
+      "grp": "Sob",
+      "energy": 0.0952,
+      "valence": 0.167,
+      "loudness": -11.863,
+      "danceability": 0.373,
+      "acousticness": 0.986,
+      "tempo": 87.19
+    },
+    {
+      "title": "Casimir Pulaski Day",
+      "grp": "Sob",
+      "energy": 0.172,
+      "valence": 0.563,
+      "loudness": -14.979,
+      "danceability": 0.686,
+      "acousticness": 0.909,
+      "tempo": 133.899
+    },
+    {
+      "title": "Hurt",
+      "grp": "Sob",
+      "energy": 0.392,
+      "valence": 0.163,
+      "loudness": -7.636,
+      "danceability": 0.534,
+      "acousticness": 0.649,
+      "tempo": 90.379
+    },
+    {
+      "title": "I'm Not The Only One",
+      "grp": "Sob",
+      "energy": 0.485,
+      "valence": 0.493,
+      "loudness": -5.795,
+      "danceability": 0.677,
+      "acousticness": 0.529,
+      "tempo": 82.001
+    },
+    {
+      "title": "Walk This Way",
+      "grp": "Rock",
+      "energy": 0.73,
+      "valence": 0.894,
+      "loudness": -10.613,
+      "danceability": 0.653,
+      "acousticness": 0.0114,
+      "tempo": 108.705
+    },
+    {
+      "title": "Purple Haze",
+      "grp": "Rock",
+      "energy": 0.905,
+      "valence": 0.486,
+      "loudness": -5.27,
+      "danceability": 0.533,
+      "acousticness": 0.00876,
+      "tempo": 108.9
+    },
+    {
+      "title": "Iron Man",
+      "grp": "Rock",
+      "energy": 0.769,
+      "valence": 0.525,
+      "loudness": -11.503,
+      "danceability": 0.332,
+      "acousticness": 0.00367,
+      "tempo": 157.378
+    },
+    {
+      "title": "You Really Got Me - Mono Mix",
+      "grp": "Rock",
+      "energy": 0.939,
+      "valence": 0.963,
+      "loudness": -6.441,
+      "danceability": 0.573,
+      "acousticness": 0.493,
+      "tempo": 137.382
+    },
+    {
+      "title": "Brown Eyed Girl",
+      "grp": "Rock",
+      "energy": 0.583,
+      "valence": 0.908,
+      "loudness": -10.964,
+      "danceability": 0.491,
+      "acousticness": 0.185,
+      "tempo": 150.566
+    },
+    {
+      "title": "One Way Or Another",
+      "grp": "Rock",
+      "energy": 0.922,
+      "valence": 0.855,
+      "loudness": -5.086,
+      "danceability": 0.442,
+      "acousticness": 0.0532,
+      "tempo": 162.272
+    },
+    {
+      "title": "Free Bird",
+      "grp": "Rock",
+      "energy": 0.834,
+      "valence": 0.338,
+      "loudness": -8.21,
+      "danceability": 0.249,
+      "acousticness": 0.0738,
+      "tempo": 118.223
+    },
+    {
+      "title": "Bring Me To Life",
+      "grp": "Rock",
+      "energy": 0.943,
+      "valence": 0.296,
+      "loudness": -3.188,
+      "danceability": 0.331,
+      "acousticness": 0.00721,
+      "tempo": 94.612
+    },
+    {
+      "title": "Everlong",
+      "grp": "Rock",
+      "energy": 0.881,
+      "valence": 0.364,
+      "loudness": -5.541,
+      "danceability": 0.413,
+      "acousticness": 0.00006,
+      "tempo": 158.066
+    },
+    {
+      "title": "Chop Suey!",
+      "grp": "Rock",
+      "energy": 0.934,
+      "valence": 0.287,
+      "loudness": -3.908,
+      "danceability": 0.417,
+      "acousticness": 0.00028,
+      "tempo": 127.066
+    },
+    {
+      "title": "Tom Sawyer",
+      "grp": "Rock",
+      "energy": 0.901,
+      "valence": 0.666,
+      "loudness": -7.211,
+      "danceability": 0.536,
+      "acousticness": 0.00145,
+      "tempo": 87.559
+    },
+    {
+      "title": "Hey Jude",
+      "grp": "Rock",
+      "energy": 0.632,
+      "valence": 0.585,
+      "loudness": -7.438,
+      "danceability": 0.462,
+      "acousticness": 0.091,
+      "tempo": 74.268
+    },
+    {
+      "title": "We Will Rock You - Remastered 2011",
+      "grp": "Rock",
+      "energy": 0.497,
+      "valence": 0.473,
+      "loudness": -7.316,
+      "danceability": 0.693,
+      "acousticness": 0.679,
+      "tempo": 81.308
+    },
+    {
+      "title": "You Really Got Me - Mono Mix",
+      "grp": "Rock",
+      "energy": 0.939,
+      "valence": 0.963,
+      "loudness": -6.441,
+      "danceability": 0.573,
+      "acousticness": 0.493,
+      "tempo": 137.382
+    },
+    {
+      "title": "The Sky Is Crying - 1984 Version",
+      "grp": "Rock",
+      "energy": 0.431,
+      "valence": 0.581,
+      "loudness": -11.074,
+      "danceability": 0.248,
+      "acousticness": 0.0051,
+      "tempo": 182.001
+    },
+    {
+      "title": "All Along the Watchtower",
+      "grp": "Rock",
+      "energy": 0.805,
+      "valence": 0.564,
+      "loudness": -6.237,
+      "danceability": 0.438,
+      "acousticness": 0.00255,
+      "tempo": 113.253
+    },
+    {
+      "title": "Seven Nation Army",
+      "grp": "Rock",
+      "energy": 0.446,
+      "valence": 0.278,
+      "loudness": -7.807,
+      "danceability": 0.743,
+      "acousticness": 0.0039,
+      "tempo": 123.596
+    },
+    {
+      "title": "Livin' On A Prayer",
+      "grp": "Rock",
+      "energy": 0.887,
+      "valence": 0.795,
+      "loudness": -3.757,
+      "danceability": 0.532,
+      "acousticness": 0.0778,
+      "tempo": 122.511
+    },
+    {
+      "title": "Paralyzer",
+      "grp": "Rock",
+      "energy": 0.939,
+      "valence": 0.861,
+      "loudness": -3.486,
+      "danceability": 0.644,
+      "acousticness": 0.157,
+      "tempo": 106.031
+    },
+    {
+      "title": "Numb",
+      "grp": "Rock",
+      "energy": 0.863,
+      "valence": 0.243,
+      "loudness": -4.153,
+      "danceability": 0.496,
+      "acousticness": 0.0046,
+      "tempo": 110.018
+    },
+    {
+      "title": "Like a Stone",
+      "grp": "Rock",
+      "energy": 0.568,
+      "valence": 0.516,
+      "loudness": -5.477,
+      "danceability": 0.614,
+      "acousticness": 0.00797,
+      "tempo": 107.849
+    },
+    {
+      "title": "I Bet You Look Good On The Dancefloor",
+      "grp": "Rock",
+      "energy": 0.948,
+      "valence": 0.778,
+      "loudness": -4.19,
+      "danceability": 0.535,
+      "acousticness": 0.00225,
+      "tempo": 103.183
+    },
+    {
+      "title": "Are You Gonna Be My Girl",
+      "grp": "Rock",
+      "energy": 0.953,
+      "valence": 0.537,
+      "loudness": -3.435,
+      "danceability": 0.613,
+      "acousticness": 0.00148,
+      "tempo": 105.046
+    },
+    {
+      "title": "I Hate Everything About You",
+      "grp": "Rock",
+      "energy": 0.83,
+      "valence": 0.453,
+      "loudness": -5.157,
+      "danceability": 0.498,
+      "acousticness": 0.00461,
+      "tempo": 89.342
+    },
+    {
+      "title": "Blurry",
+      "grp": "Rock",
+      "energy": 0.938,
+      "valence": 0.523,
+      "loudness": -4.507,
+      "danceability": 0.431,
+      "acousticness": 0.00805,
+      "tempo": 157.462
+    },
+    {
+      "title": "Uprising",
+      "grp": "Rock",
+      "energy": 0.905,
+      "valence": 0.411,
+      "loudness": -4.046,
+      "danceability": 0.602,
+      "acousticness": 0.0002,
+      "tempo": 128.019
+    },
+    {
+      "title": "Fame - 2016 Remaster",
+      "grp": "Rock",
+      "energy": 0.555,
+      "valence": 0.673,
+      "loudness": -10.276,
+      "danceability": 0.786,
+      "acousticness": 0.454,
+      "tempo": 95.1
+    },
+    {
+      "title": "Smells Like Teen Spirit",
+      "grp": "Rock",
+      "energy": 0.912,
+      "valence": 0.72,
+      "loudness": -4.556,
+      "danceability": 0.502,
+      "acousticness": 0.00003,
+      "tempo": 116.761
+    },
+    {
+      "title": "Enter Sandman",
+      "grp": "Rock",
+      "energy": 0.824,
+      "valence": 0.635,
+      "loudness": -8.71,
+      "danceability": 0.579,
+      "acousticness": 0.00206,
+      "tempo": 123.331
+    },
+    {
+      "title": "(I Can't Get No) Satisfaction - Mono Version",
+      "grp": "Rock",
+      "energy": 0.863,
+      "valence": 0.931,
+      "loudness": -7.89,
+      "danceability": 0.723,
+      "acousticness": 0.0383,
+      "tempo": 136.302
+    },
+    {
+      "title": "Get Free",
+      "grp": "Rock",
+      "energy": 0.978,
+      "valence": 0.603,
+      "loudness": -3.278,
+      "danceability": 0.502,
+      "acousticness": 0.00016,
+      "tempo": 138.811
+    },
+    {
+      "title": "Thunderstruck",
+      "grp": "Rock",
+      "energy": 0.89,
+      "valence": 0.259,
+      "loudness": -5.175,
+      "danceability": 0.502,
+      "acousticness": 0.00015,
+      "tempo": 133.52
+    },
+    {
+      "title": "Sweet Child O' Mine",
+      "grp": "Rock",
+      "energy": 0.952,
+      "valence": 0.624,
+      "loudness": -5.321,
+      "danceability": 0.446,
+      "acousticness": 0.0901,
+      "tempo": 125.303
+    },
+    {
+      "title": "Me and Bobby McGee",
+      "grp": "Rock",
+      "energy": 0.463,
+      "valence": 0.66,
+      "loudness": -10.96,
+      "danceability": 0.43,
+      "acousticness": 0.303,
+      "tempo": 93.405
+    },
+    {
+      "title": "Back In Black",
+      "grp": "Rock",
+      "energy": 0.7,
+      "valence": 0.763,
+      "loudness": -5.678,
+      "danceability": 0.31,
+      "acousticness": 0.011,
+      "tempo": 188.386
+    }
+  ],
+  "lyric_summary": [
+    {
+      "grp": "John Mayer (other)",
+      "n": 101,
+      "mean": 0.04454,
+      "median": 0.03529,
+      "sd": 0.03914
+    },
+    {
+      "grp": "Rock",
+      "n": 33,
+      "mean": 0.053,
+      "median": 0.04528,
+      "sd": 0.04057
+    },
+    {
+      "grp": "Sob",
+      "n": 35,
+      "mean": 0.06006,
+      "median": 0.05333,
+      "sd": 0.03729
+    },
+    {
+      "grp": "Sob Rock",
+      "n": 10,
+      "mean": 0.07127,
+      "median": 0.05163,
+      "sd": 0.06124
+    }
+  ],
+  "lyric_tests": [
+    {
+      "comparison": "Sob",
+      "p": 0.5932
+    },
+    {
+      "comparison": "Rock",
+      "p": 0.39365
+    },
+    {
+      "comparison": "John Mayer (other)",
+      "p": 0.20667
+    }
+  ],
+  "sadness_tracks": [
+    {
+      "title": "(I Can't Get No) Satisfaction - Mono Version",
+      "grp": "Rock",
+      "sadness": 0.00909,
+      "words": 110
+    },
+    {
+      "title": "26",
+      "grp": "Sob",
+      "sadness": 0,
+      "words": 68
+    },
+    {
+      "title": "3x5",
+      "grp": "John Mayer (other)",
+      "sadness": 0.03529,
+      "words": 85
+    },
+    {
+      "title": "83",
+      "grp": "John Mayer (other)",
+      "sadness": 0.02469,
+      "words": 81
+    },
+    {
+      "title": "A Face To Call Home",
+      "grp": "John Mayer (other)",
+      "sadness": 0.00833,
+      "words": 120
+    },
+    {
+      "title": "All Along the Watchtower",
+      "grp": "Rock",
+      "sadness": 0.05634,
+      "words": 71
+    },
+    {
+      "title": "All I Want Is to Be With You",
+      "grp": "Sob Rock",
+      "sadness": 0.03333,
+      "words": 60
+    },
+    {
+      "title": "All We Ever Do Is Say Goodbye",
+      "grp": "John Mayer (other)",
+      "sadness": 0.0241,
+      "words": 83
+    },
+    {
+      "title": "Are You Gonna Be My Girl",
+      "grp": "Rock",
+      "sadness": 0.01266,
+      "words": 79
+    },
+    {
+      "title": "Assassin",
+      "grp": "John Mayer (other)",
+      "sadness": 0.07207,
+      "words": 111
+    },
+    {
+      "title": "Back In Black",
+      "grp": "Rock",
+      "sadness": 0.1,
+      "words": 120
+    },
+    {
+      "title": "Back to You",
+      "grp": "John Mayer (other)",
+      "sadness": 0.02381,
+      "words": 42
+    },
+    {
+      "title": "Badge And Gun",
+      "grp": "John Mayer (other)",
+      "sadness": 0.04255,
+      "words": 94
+    },
+    {
+      "title": "Belief",
+      "grp": "John Mayer (other)",
+      "sadness": 0.03297,
+      "words": 91
+    },
+    {
+      "title": "Bigger Than My Body",
+      "grp": "John Mayer (other)",
+      "sadness": 0,
+      "words": 74
+    },
+    {
+      "title": "Blackstar",
+      "grp": "Sob",
+      "sadness": 0.0625,
+      "words": 160
+    },
+    {
+      "title": "Blurry",
+      "grp": "Rock",
+      "sadness": 0.04902,
+      "words": 102
+    },
+    {
+      "title": "Bold as Love",
+      "grp": "John Mayer (other)",
+      "sadness": 0.04717,
+      "words": 106
+    },
+    {
+      "title": "Born and Raised",
+      "grp": "John Mayer (other)",
+      "sadness": 0.02439,
+      "words": 82
+    },
+    {
+      "title": "Bring Me To Life",
+      "grp": "Rock",
+      "sadness": 0.0381,
+      "words": 105
+    },
+    {
+      "title": "Brown Eyed Girl",
+      "grp": "Rock",
+      "sadness": 0.01802,
+      "words": 111
+    },
+    {
+      "title": "Call Me The Breeze",
+      "grp": "John Mayer (other)",
+      "sadness": 0,
+      "words": 48
+    },
+    {
+      "title": "Carry Me Away",
+      "grp": "Sob Rock",
+      "sadness": 0.02632,
+      "words": 76
+    },
+    {
+      "title": "Casimir Pulaski Day",
+      "grp": "Sob",
+      "sadness": 0.03614,
+      "words": 83
+    },
+    {
+      "title": "Changing",
+      "grp": "John Mayer (other)",
+      "sadness": 0,
+      "words": 80
+    },
+    {
+      "title": "Chop Suey!",
+      "grp": "Rock",
+      "sadness": 0.17778,
+      "words": 135
+    },
+    {
+      "title": "City Love",
+      "grp": "John Mayer (other)",
+      "sadness": 0.0241,
+      "words": 83
+    },
+    {
+      "title": "Clarity",
+      "grp": "John Mayer (other)",
+      "sadness": 0.02564,
+      "words": 78
+    },
+    {
+      "title": "Come Back to Bed",
+      "grp": "John Mayer (other)",
+      "sadness": 0.06,
+      "words": 100
+    },
+    {
+      "title": "Comfortable - EP Version",
+      "grp": "John Mayer (other)",
+      "sadness": 0.0411,
+      "words": 73
+    },
+    {
+      "title": "Covered in Rain - Live at the Oak Mountain Amphitheater, Birmingham, AL - September 2002",
+      "grp": "John Mayer (other)",
+      "sadness": 0.07595,
+      "words": 79
+    },
+    {
+      "title": "Crossroads",
+      "grp": "John Mayer (other)",
+      "sadness": 0.04082,
+      "words": 49
+    },
+    {
+      "title": "Daughters",
+      "grp": "John Mayer (other)",
+      "sadness": 0.07609,
+      "words": 92
+    },
+    {
+      "title": "Dear Marie",
+      "grp": "John Mayer (other)",
+      "sadness": 0,
+      "words": 75
+    },
+    {
+      "title": "Do You Know Me",
+      "grp": "John Mayer (other)",
+      "sadness": 0,
+      "words": 25
+    },
+    {
+      "title": "Dreaming with a Broken Heart",
+      "grp": "John Mayer (other)",
+      "sadness": 0.05618,
+      "words": 89
+    },
+    {
+      "title": "Dreaming with a Broken Heart",
+      "grp": "Sob",
+      "sadness": 0.05618,
+      "words": 89
+    },
+    {
+      "title": "Drew Barrymore",
+      "grp": "Sob",
+      "sadness": 0.04098,
+      "words": 122
+    },
+    {
+      "title": "Edge of Desire",
+      "grp": "John Mayer (other)",
+      "sadness": 0.06604,
+      "words": 106
+    },
+    {
+      "title": "Emoji of a Wave",
+      "grp": "John Mayer (other)",
+      "sadness": 0.05263,
+      "words": 57
+    },
+    {
+      "title": "Enter Sandman",
+      "grp": "Rock",
+      "sadness": 0.04545,
+      "words": 110
+    },
+    {
+      "title": "Everlong",
+      "grp": "Rock",
+      "sadness": 0.10294,
+      "words": 68
+    },
+    {
+      "title": "Everybody Hurts",
+      "grp": "Sob",
+      "sadness": 0.07812,
+      "words": 64
+    },
+    {
+      "title": "Everyday I Have The Blues - Live at the Nokia Theatre, Los Angeles, CA - December 2007",
+      "grp": "John Mayer (other)",
+      "sadness": 0.18182,
+      "words": 44
+    },
+    {
+      "title": "Fame - 2016 Remaster",
+      "grp": "Rock",
+      "sadness": 0.04348,
+      "words": 92
+    },
+    {
+      "title": "Fast Car",
+      "grp": "Sob",
+      "sadness": 0.0443,
+      "words": 158
+    },
+    {
+      "title": "Fix You",
+      "grp": "Sob",
+      "sadness": 0.05333,
+      "words": 75
+    },
+    {
+      "title": "Free Bird",
+      "grp": "Rock",
+      "sadness": 0.0274,
+      "words": 73
+    },
+    {
+      "title": "Free Fallin' - Live at the Nokia Theatre, Los Angeles, CA - December 2007",
+      "grp": "John Mayer (other)",
+      "sadness": 0.04598,
+      "words": 87
+    },
+    {
+      "title": "Friends, Lovers or Nothing",
+      "grp": "John Mayer (other)",
+      "sadness": 0.02632,
+      "words": 76
+    },
+    {
+      "title": "Get Free",
+      "grp": "Rock",
+      "sadness": 0.02041,
+      "words": 49
+    },
+    {
+      "title": "Go Home",
+      "grp": "Sob",
+      "sadness": 0.0367,
+      "words": 109
+    },
+    {
+      "title": "Good Love Is On the Way - Live at the Nokia Theatre, Los Angeles, CA - December 2007",
+      "grp": "John Mayer (other)",
+      "sadness": 0.05556,
+      "words": 72
+    },
+    {
+      "title": "Gravity",
+      "grp": "John Mayer (other)",
+      "sadness": 0.01136,
+      "words": 88
+    },
+    {
+      "title": "Great Indoors",
+      "grp": "John Mayer (other)",
+      "sadness": 0.03158,
+      "words": 95
+    },
+    {
+      "title": "Half of My Heart",
+      "grp": "John Mayer (other)",
+      "sadness": 0.05128,
+      "words": 117
+    },
+    {
+      "title": "Heartbreak Warfare",
+      "grp": "John Mayer (other)",
+      "sadness": 0.16438,
+      "words": 73
+    },
+    {
+      "title": "Helpless",
+      "grp": "John Mayer (other)",
+      "sadness": 0.12941,
+      "words": 85
+    },
+    {
+      "title": "Hey Jude",
+      "grp": "Rock",
+      "sadness": 0.03279,
+      "words": 122
+    },
+    {
+      "title": "Home Life",
+      "grp": "John Mayer (other)",
+      "sadness": 0.00917,
+      "words": 109
+    },
+    {
+      "title": "Hummingbird - Live in Philadelphia, PA & Hartford, CT, August 2004",
+      "grp": "John Mayer (other)",
+      "sadness": 0.03333,
+      "words": 60
+    },
+    {
+      "title": "Hurt",
+      "grp": "Sob",
+      "sadness": 0.08955,
+      "words": 67
+    },
+    {
+      "title": "I Bet You Look Good On The Dancefloor",
+      "grp": "Rock",
+      "sadness": 0.07,
+      "words": 100
+    },
+    {
+      "title": "I Can't Make You Love Me",
+      "grp": "Sob",
+      "sadness": 0.08333,
+      "words": 72
+    },
+    {
+      "title": "I Don't Need No Doctor - Live at the Nokia Theatre, Los Angeles, CA - December 2007",
+      "grp": "John Mayer (other)",
+      "sadness": 0.04688,
+      "words": 64
+    },
+    {
+      "title": "I Don't Trust Myself (With Loving You)",
+      "grp": "John Mayer (other)",
+      "sadness": 0.01042,
+      "words": 96
+    },
+    {
+      "title": "I Guess I Just Feel Like",
+      "grp": "Sob Rock",
+      "sadness": 0.05063,
+      "words": 79
+    },
+    {
+      "title": "I Hate Everything About You",
+      "grp": "Rock",
+      "sadness": 0.13208,
+      "words": 53
+    },
+    {
+      "title": "I Will Be Found (Lost At Sea)",
+      "grp": "John Mayer (other)",
+      "sadness": 0.07407,
+      "words": 54
+    },
+    {
+      "title": "I Will Follow You into the Dark",
+      "grp": "Sob",
+      "sadness": 0.11881,
+      "words": 101
+    },
+    {
+      "title": "I Will Remember You",
+      "grp": "Sob",
+      "sadness": 0.07,
+      "words": 100
+    },
+    {
+      "title": "I'm Gonna Find Another You",
+      "grp": "John Mayer (other)",
+      "sadness": 0.06557,
+      "words": 61
+    },
+    {
+      "title": "I'm Not The Only One",
+      "grp": "Sob",
+      "sadness": 0.09756,
+      "words": 82
+    },
+    {
+      "title": "ILYSB STRIPPED",
+      "grp": "Sob",
+      "sadness": 0.14,
+      "words": 100
+    },
+    {
+      "title": "If I Ever Get Around To Living",
+      "grp": "John Mayer (other)",
+      "sadness": 0.0119,
+      "words": 84
+    },
+    {
+      "title": "In Repair",
+      "grp": "John Mayer (other)",
+      "sadness": 0,
+      "words": 81
+    },
+    {
+      "title": "In Your Atmosphere - Live at the Nokia Theatre, Los Angeles, CA - December 2007",
+      "grp": "John Mayer (other)",
+      "sadness": 0.05833,
+      "words": 120
+    },
+    {
+      "title": "In the Blood",
+      "grp": "John Mayer (other)",
+      "sadness": 0.03306,
+      "words": 121
+    },
+    {
+      "title": "Inner City Blues (Make Me Wanna Holler) - Live at Sandstone Amphitheater, Bonner Springs, Kansas, July 27, 2004",
+      "grp": "John Mayer (other)",
+      "sadness": 0.05063,
+      "words": 79
+    },
+    {
+      "title": "Inside Friend (feat. John Mayer)",
+      "grp": "John Mayer (other)",
+      "sadness": 0.032,
+      "words": 125
+    },
+    {
+      "title": "Iron Man",
+      "grp": "Rock",
+      "sadness": 0.06897,
+      "words": 58
+    },
+    {
+      "title": "Last Train Home",
+      "grp": "Sob Rock",
+      "sadness": 0.05263,
+      "words": 57
+    },
+    {
+      "title": "Last Train Home - Ballad Version",
+      "grp": "John Mayer (other)",
+      "sadness": 0.12222,
+      "words": 90
+    },
+    {
+      "title": "Lenny / Man On the Side - Live at the Oak Mountain Amphitheater, Birmingham, AL - September 2002",
+      "grp": "John Mayer (other)",
+      "sadness": 0.02778,
+      "words": 72
+    },
+    {
+      "title": "Like a Stone",
+      "grp": "Rock",
+      "sadness": 0.08537,
+      "words": 82
+    },
+    {
+      "title": "Livin' On A Prayer",
+      "grp": "Rock",
+      "sadness": 0.06024,
+      "words": 83
+    },
+    {
+      "title": "Love Is A Verb",
+      "grp": "John Mayer (other)",
+      "sadness": 0,
+      "words": 70
+    },
+    {
+      "title": "Love Song for No One",
+      "grp": "John Mayer (other)",
+      "sadness": 0.01299,
+      "words": 77
+    },
+    {
+      "title": "Love Soon - EP Version",
+      "grp": "John Mayer (other)",
+      "sadness": 0.04762,
+      "words": 84
+    },
+    {
+      "title": "Love on the Weekend",
+      "grp": "John Mayer (other)",
+      "sadness": 0.04124,
+      "words": 97
+    },
+    {
+      "title": "Mad World (Feat. Michael Andrews)",
+      "grp": "Sob",
+      "sadness": 0.08257,
+      "words": 109
+    },
+    {
+      "title": "Make You Feel My Love",
+      "grp": "Sob",
+      "sadness": 0.05952,
+      "words": 84
+    },
+    {
+      "title": "Marvins Room",
+      "grp": "Sob",
+      "sadness": 0.0283,
+      "words": 106
+    },
+    {
+      "title": "Me and Bobby McGee",
+      "grp": "Rock",
+      "sadness": 0.04528,
+      "words": 265
+    },
+    {
+      "title": "Message In a Bottle - Live at the Oak Mountain Amphitheater, Birmingham, AL - September 2002",
+      "grp": "John Mayer (other)",
+      "sadness": 0.1087,
+      "words": 46
+    },
+    {
+      "title": "Moving On and Getting Over",
+      "grp": "John Mayer (other)",
+      "sadness": 0,
+      "words": 112
+    },
+    {
+      "title": "My Immortal",
+      "grp": "Sob",
+      "sadness": 0.15094,
+      "words": 53
+    },
+    {
+      "title": "My Stupid Mouth",
+      "grp": "John Mayer (other)",
+      "sadness": 0.05263,
+      "words": 95
+    },
+    {
+      "title": "My Stupid Mouth - Demo Version",
+      "grp": "John Mayer (other)",
+      "sadness": 0.05263,
+      "words": 95
+    },
+    {
+      "title": "Neon",
+      "grp": "John Mayer (other)",
+      "sadness": 0.02913,
+      "words": 103
+    },
+    {
+      "title": "Never on the Day You Leave",
+      "grp": "John Mayer (other)",
+      "sadness": 0.12712,
+      "words": 118
+    },
+    {
+      "title": "New Deep",
+      "grp": "John Mayer (other)",
+      "sadness": 0.01408,
+      "words": 71
+    },
+    {
+      "title": "New Deep - Live at Blossom Music Center, Cleveland, Ohio, August 3, 2004",
+      "grp": "John Mayer (other)",
+      "sadness": 0.01408,
+      "words": 71
+    },
+    {
+      "title": "New Light",
+      "grp": "Sob Rock",
+      "sadness": 0.00962,
+      "words": 104
+    },
+    {
+      "title": "New Light - Zookper Remix",
+      "grp": "John Mayer (other)",
+      "sadness": 0.00962,
+      "words": 104
+    },
+    {
+      "title": "No Such Thing",
+      "grp": "John Mayer (other)",
+      "sadness": 0.03738,
+      "words": 107
+    },
+    {
+      "title": "Not Myself",
+      "grp": "John Mayer (other)",
+      "sadness": 0.04082,
+      "words": 49
+    },
+    {
+      "title": "Numb",
+      "grp": "Rock",
+      "sadness": 0.06863,
+      "words": 102
+    },
+    {
+      "title": "On The Way Home",
+      "grp": "John Mayer (other)",
+      "sadness": 0.02,
+      "words": 100
+    },
+    {
+      "title": "One Way Or Another",
+      "grp": "Rock",
+      "sadness": 0.03306,
+      "words": 121
+    },
+    {
+      "title": "Only Heart",
+      "grp": "John Mayer (other)",
+      "sadness": 0.02469,
+      "words": 81
+    },
+    {
+      "title": "Out of My Mind - Live at the Nokia Theatre, Los Angeles, CA - December 2007",
+      "grp": "John Mayer (other)",
+      "sadness": 0.02128,
+      "words": 47
+    },
+    {
+      "title": "Paper Doll",
+      "grp": "John Mayer (other)",
+      "sadness": 0.06818,
+      "words": 88
+    },
+    {
+      "title": "Paralyzer",
+      "grp": "Rock",
+      "sadness": 0.02247,
+      "words": 89
+    },
+    {
+      "title": "People Get Old",
+      "grp": "Sob",
+      "sadness": 0.01316,
+      "words": 152
+    },
+    {
+      "title": "Perfectly Lonely",
+      "grp": "John Mayer (other)",
+      "sadness": 0.11765,
+      "words": 68
+    },
+    {
+      "title": "Purple Rain",
+      "grp": "Sob",
+      "sadness": 0.04301,
+      "words": 93
+    },
+    {
+      "title": "Queen of California",
+      "grp": "John Mayer (other)",
+      "sadness": 0.08,
+      "words": 75
+    },
+    {
+      "title": "Quiet - EP Version",
+      "grp": "John Mayer (other)",
+      "sadness": 0.04762,
+      "words": 63
+    },
+    {
+      "title": "River",
+      "grp": "Sob",
+      "sadness": 0.04839,
+      "words": 62
+    },
+    {
+      "title": "Roll it on Home",
+      "grp": "John Mayer (other)",
+      "sadness": 0,
+      "words": 96
+    },
+    {
+      "title": "Rosie",
+      "grp": "John Mayer (other)",
+      "sadness": 0.09859,
+      "words": 71
+    },
+    {
+      "title": "Self Care",
+      "grp": "Sob",
+      "sadness": 0.01333,
+      "words": 150
+    },
+    {
+      "title": "Seven Nation Army",
+      "grp": "Rock",
+      "sadness": 0.02247,
+      "words": 89
+    },
+    {
+      "title": "Shadow Days",
+      "grp": "John Mayer (other)",
+      "sadness": 0.04902,
+      "words": 102
+    },
+    {
+      "title": "Shot in the Dark",
+      "grp": "Sob Rock",
+      "sadness": 0.12766,
+      "words": 94
+    },
+    {
+      "title": "Shouldnt Matter but It Does",
+      "grp": "Sob Rock",
+      "sadness": 0.05051,
+      "words": 99
+    },
+    {
+      "title": "Skinny Love",
+      "grp": "Sob",
+      "sadness": 0.06757,
+      "words": 74
+    },
+    {
+      "title": "Slow Burn",
+      "grp": "Sob",
+      "sadness": 0.02128,
+      "words": 94
+    },
+    {
+      "title": "Slow Dancing in a Burning Room",
+      "grp": "John Mayer (other)",
+      "sadness": 0.07692,
+      "words": 65
+    },
+    {
+      "title": "Smells Like Teen Spirit",
+      "grp": "Rock",
+      "sadness": 0.02273,
+      "words": 88
+    },
+    {
+      "title": "Somebody Else",
+      "grp": "Sob",
+      "sadness": 0.04274,
+      "words": 117
+    },
+    {
+      "title": "Someone Like You",
+      "grp": "Sob",
+      "sadness": 0.10577,
+      "words": 104
+    },
+    {
+      "title": "Something Like Olivia",
+      "grp": "John Mayer (other)",
+      "sadness": 0.02174,
+      "words": 92
+    },
+    {
+      "title": "Something's Missing",
+      "grp": "John Mayer (other)",
+      "sadness": 0.07843,
+      "words": 51
+    },
+    {
+      "title": "Speak For Me",
+      "grp": "John Mayer (other)",
+      "sadness": 0.10345,
+      "words": 87
+    },
+    {
+      "title": "Split Screen Sadness",
+      "grp": "John Mayer (other)",
+      "sadness": 0.07092,
+      "words": 141
+    },
+    {
+      "title": "St. Patrick's Day",
+      "grp": "John Mayer (other)",
+      "sadness": 0.03883,
+      "words": 103
+    },
+    {
+      "title": "Still Feel Like Your Man",
+      "grp": "John Mayer (other)",
+      "sadness": 0.01626,
+      "words": 123
+    },
+    {
+      "title": "Stop This Train",
+      "grp": "John Mayer (other)",
+      "sadness": 0.01205,
+      "words": 83
+    },
+    {
+      "title": "Sweet Child O' Mine",
+      "grp": "Rock",
+      "sadness": 0.06579,
+      "words": 76
+    },
+    {
+      "title": "Tears in Heaven",
+      "grp": "Sob",
+      "sadness": 0.0303,
+      "words": 66
+    },
+    {
+      "title": "The Age of Worry",
+      "grp": "John Mayer (other)",
+      "sadness": 0.1831,
+      "words": 71
+    },
+    {
+      "title": "The Blower's Daughter",
+      "grp": "Sob",
+      "sadness": 0,
+      "words": 63
+    },
+    {
+      "title": "The Heart of Life",
+      "grp": "John Mayer (other)",
+      "sadness": 0.09722,
+      "words": 72
+    },
+    {
+      "title": "The Sky Is Crying - 1984 Version",
+      "grp": "Rock",
+      "sadness": 0.11765,
+      "words": 68
+    },
+    {
+      "title": "Thunderstruck",
+      "grp": "Rock",
+      "sadness": 0,
+      "words": 64
+    },
+    {
+      "title": "Til the Right One Comes",
+      "grp": "Sob Rock",
+      "sadness": 0.06061,
+      "words": 132
+    },
+    {
+      "title": "Tom Sawyer",
+      "grp": "Rock",
+      "sadness": 0.03947,
+      "words": 76
+    },
+    {
+      "title": "Tracing - Acoustic - Live at Shoreline Amphitheater, Mountain View, CA, July 16, 2004",
+      "grp": "John Mayer (other)",
+      "sadness": 0.03409,
+      "words": 88
+    },
+    {
+      "title": "Uprising",
+      "grp": "Rock",
+      "sadness": 0.0625,
+      "words": 96
+    },
+    {
+      "title": "Victoria - EP Version",
+      "grp": "John Mayer (other)",
+      "sadness": 0.01538,
+      "words": 65
+    },
+    {
+      "title": "Vultures",
+      "grp": "John Mayer (other)",
+      "sadness": 0.02105,
+      "words": 95
+    },
+    {
+      "title": "Wait Until Tomorrow - Live at the Nokia Theatre, Los Angeles, CA - December 2007",
+      "grp": "John Mayer (other)",
+      "sadness": 0.01087,
+      "words": 92
+    },
+    {
+      "title": "Waitin' On The Day",
+      "grp": "John Mayer (other)",
+      "sadness": 0,
+      "words": 47
+    },
+    {
+      "title": "Waiting On the World to Change",
+      "grp": "John Mayer (other)",
+      "sadness": 0,
+      "words": 92
+    },
+    {
+      "title": "Walk This Way",
+      "grp": "Rock",
+      "sadness": 0.00787,
+      "words": 127
+    },
+    {
+      "title": "Walt Grace's Submarine Test, January 1967",
+      "grp": "John Mayer (other)",
+      "sadness": 0.06579,
+      "words": 76
+    },
+    {
+      "title": "War of My Life",
+      "grp": "John Mayer (other)",
+      "sadness": 0.06897,
+      "words": 58
+    },
+    {
+      "title": "We Will Rock You - Remastered 2011",
+      "grp": "Rock",
+      "sadness": 0.09091,
+      "words": 44
+    },
+    {
+      "title": "What Hurts The Most",
+      "grp": "Sob",
+      "sadness": 0.07965,
+      "words": 113
+    },
+    {
+      "title": "What Sarah Said",
+      "grp": "Sob",
+      "sadness": 0.07368,
+      "words": 95
+    },
+    {
+      "title": "Wheel",
+      "grp": "John Mayer (other)",
+      "sadness": 0.0101,
+      "words": 99
+    },
+    {
+      "title": "When I Was Your Man",
+      "grp": "Sob",
+      "sadness": 0.0354,
+      "words": 113
+    },
+    {
+      "title": "When We Were Young",
+      "grp": "Sob",
+      "sadness": 0.02913,
+      "words": 103
+    },
+    {
+      "title": "Whiskey, Whiskey, Whiskey",
+      "grp": "John Mayer (other)",
+      "sadness": 0.03883,
+      "words": 103
+    },
+    {
+      "title": "Who Did You Think I Was - Live at the Nokia Theatre, Los Angeles, CA - December 2007",
+      "grp": "John Mayer (other)",
+      "sadness": 0.05769,
+      "words": 52
+    },
+    {
+      "title": "Who Says",
+      "grp": "John Mayer (other)",
+      "sadness": 0,
+      "words": 119
+    },
+    {
+      "title": "Who You Love (feat. Katy Perry)",
+      "grp": "John Mayer (other)",
+      "sadness": 0,
+      "words": 66
+    },
+    {
+      "title": "Why Georgia",
+      "grp": "John Mayer (other)",
+      "sadness": 0.02632,
+      "words": 76
+    },
+    {
+      "title": "Why You No Love Me",
+      "grp": "Sob Rock",
+      "sadness": 0.08219,
+      "words": 73
+    },
+    {
+      "title": "Wild Blue",
+      "grp": "Sob Rock",
+      "sadness": 0.21918,
+      "words": 73
+    },
+    {
+      "title": "Wildfire",
+      "grp": "John Mayer (other)",
+      "sadness": 0.02564,
+      "words": 78
+    },
+    {
+      "title": "You Really Got Me - Mono Mix",
+      "grp": "Rock",
+      "sadness": 0,
+      "words": 112
+    },
+    {
+      "title": "You're Gonna Live Forever in Me",
+      "grp": "John Mayer (other)",
+      "sadness": 0.08333,
+      "words": 48
+    },
+    {
+      "title": "You're No One 'Til Someone Lets You Down",
+      "grp": "John Mayer (other)",
+      "sadness": 0.06818,
+      "words": 88
+    },
+    {
+      "title": "Your Body Is a Wonderland",
+      "grp": "John Mayer (other)",
+      "sadness": 0.03158,
+      "words": 95
+    },
+    {
+      "title": "hope is a dangerous thing for a woman like me to have but I have it",
+      "grp": "Sob",
+      "sadness": 0.05031,
+      "words": 159
+    },
+    {
+      "title": "when the party's over",
+      "grp": "Sob",
+      "sadness": 0.11957,
+      "words": 92
+    }
+  ],
+  "emo_tests": [
+    {
+      "emotion": "anger",
+      "mean_sobrock": 0.08936,
+      "mean_jm": 0.04615,
+      "mean_sob": 0.06782,
+      "mean_rock": 0.06504,
+      "p_vs_sob": 0.26089,
+      "p_vs_rock": 0.20621,
+      "p_vs_jm": 0.03119
+    },
+    {
+      "emotion": "anticipation",
+      "mean_sobrock": 0.0529,
+      "mean_jm": 0.11717,
+      "mean_sob": 0.10904,
+      "mean_rock": 0.09591,
+      "p_vs_sob": 0.02061,
+      "p_vs_rock": 0.06204,
+      "p_vs_jm": 0.00757
+    },
+    {
+      "emotion": "disgust",
+      "mean_sobrock": 0.03842,
+      "mean_jm": 0.03424,
+      "mean_sob": 0.04234,
+      "mean_rock": 0.05175,
+      "p_vs_sob": 0.74439,
+      "p_vs_rock": 0.28409,
+      "p_vs_jm": 0.70663
+    },
+    {
+      "emotion": "fear",
+      "mean_sobrock": 0.0833,
+      "mean_jm": 0.08477,
+      "mean_sob": 0.07806,
+      "mean_rock": 0.07413,
+      "p_vs_sob": 0.75159,
+      "p_vs_rock": 0.58586,
+      "p_vs_jm": 0.92771
+    },
+    {
+      "emotion": "joy",
+      "mean_sobrock": 0.10758,
+      "mean_jm": 0.12156,
+      "mean_sob": 0.12032,
+      "mean_rock": 0.10829,
+      "p_vs_sob": 0.61997,
+      "p_vs_rock": 0.97922,
+      "p_vs_jm": 0.58858
+    },
+    {
+      "emotion": "negative",
+      "mean_sobrock": 0.18647,
+      "mean_jm": 0.1457,
+      "mean_sob": 0.15354,
+      "mean_rock": 0.15411,
+      "p_vs_sob": 0.13091,
+      "p_vs_rock": 0.173,
+      "p_vs_jm": 0.06217
+    },
+    {
+      "emotion": "positive",
+      "mean_sobrock": 0.15246,
+      "mean_jm": 0.18551,
+      "mean_sob": 0.16012,
+      "mean_rock": 0.17872,
+      "p_vs_sob": 0.78082,
+      "p_vs_rock": 0.40148,
+      "p_vs_jm": 0.24121
+    },
+    {
+      "emotion": "sadness",
+      "mean_sobrock": 0.12045,
+      "mean_jm": 0.08604,
+      "mean_sob": 0.10347,
+      "mean_rock": 0.07503,
+      "p_vs_sob": 0.41025,
+      "p_vs_rock": 0.03043,
+      "p_vs_jm": 0.08722
+    },
+    {
+      "emotion": "surprise",
+      "mean_sobrock": 0.09079,
+      "mean_jm": 0.07248,
+      "mean_sob": 0.07145,
+      "mean_rock": 0.09332,
+      "p_vs_sob": 0.37174,
+      "p_vs_rock": 0.91445,
+      "p_vs_jm": 0.38539
+    },
+    {
+      "emotion": "trust",
+      "mean_sobrock": 0.07827,
+      "mean_jm": 0.10638,
+      "mean_sob": 0.09384,
+      "mean_rock": 0.1037,
+      "p_vs_sob": 0.54674,
+      "p_vs_rock": 0.34114,
+      "p_vs_jm": 0.28232
+    }
+  ],
+  "cross": {
+    "n": 76,
+    "r": -0.14689,
+    "p": 0.20543,
+    "ci": [-0.36041, 0.08125]
+  },
+  "cross_points": [
+    {
+      "title": "(I Can't Get No) Satisfaction - Mono Version",
+      "grp": "Rock",
+      "valence": 0.931,
+      "sadness": 0.00909
+    },
+    {
+      "title": "26",
+      "grp": "Sob",
+      "valence": 0.409,
+      "sadness": 0
+    },
+    {
+      "title": "All Along the Watchtower",
+      "grp": "Rock",
+      "valence": 0.564,
+      "sadness": 0.05634
+    },
+    {
+      "title": "All I Want Is to Be With You",
+      "grp": "Sob Rock",
+      "valence": 0.304,
+      "sadness": 0.03333
+    },
+    {
+      "title": "Are You Gonna Be My Girl",
+      "grp": "Rock",
+      "valence": 0.537,
+      "sadness": 0.01266
+    },
+    {
+      "title": "Back In Black",
+      "grp": "Rock",
+      "valence": 0.763,
+      "sadness": 0.1
+    },
+    {
+      "title": "Blackstar",
+      "grp": "Sob",
+      "valence": 0.114,
+      "sadness": 0.0625
+    },
+    {
+      "title": "Blurry",
+      "grp": "Rock",
+      "valence": 0.523,
+      "sadness": 0.04902
+    },
+    {
+      "title": "Bring Me To Life",
+      "grp": "Rock",
+      "valence": 0.296,
+      "sadness": 0.0381
+    },
+    {
+      "title": "Brown Eyed Girl",
+      "grp": "Rock",
+      "valence": 0.908,
+      "sadness": 0.01802
+    },
+    {
+      "title": "Carry Me Away",
+      "grp": "Sob Rock",
+      "valence": 0.744,
+      "sadness": 0.02632
+    },
+    {
+      "title": "Casimir Pulaski Day",
+      "grp": "Sob",
+      "valence": 0.563,
+      "sadness": 0.03614
+    },
+    {
+      "title": "Chop Suey!",
+      "grp": "Rock",
+      "valence": 0.287,
+      "sadness": 0.17778
+    },
+    {
+      "title": "Dreaming with a Broken Heart",
+      "grp": "Sob",
+      "valence": 0.155,
+      "sadness": 0.05618
+    },
+    {
+      "title": "Drew Barrymore",
+      "grp": "Sob",
+      "valence": 0.29,
+      "sadness": 0.04098
+    },
+    {
+      "title": "Enter Sandman",
+      "grp": "Rock",
+      "valence": 0.635,
+      "sadness": 0.04545
+    },
+    {
+      "title": "Everlong",
+      "grp": "Rock",
+      "valence": 0.364,
+      "sadness": 0.10294
+    },
+    {
+      "title": "Everybody Hurts",
+      "grp": "Sob",
+      "valence": 0.166,
+      "sadness": 0.07812
+    },
+    {
+      "title": "Fame - 2016 Remaster",
+      "grp": "Rock",
+      "valence": 0.673,
+      "sadness": 0.04348
+    },
+    {
+      "title": "Fast Car",
+      "grp": "Sob",
+      "valence": 0.194,
+      "sadness": 0.0443
+    },
+    {
+      "title": "Fix You",
+      "grp": "Sob",
+      "valence": 0.124,
+      "sadness": 0.05333
+    },
+    {
+      "title": "Free Bird",
+      "grp": "Rock",
+      "valence": 0.338,
+      "sadness": 0.0274
+    },
+    {
+      "title": "Get Free",
+      "grp": "Rock",
+      "valence": 0.603,
+      "sadness": 0.02041
+    },
+    {
+      "title": "Go Home",
+      "grp": "Sob",
+      "valence": 0.167,
+      "sadness": 0.0367
+    },
+    {
+      "title": "Hey Jude",
+      "grp": "Rock",
+      "valence": 0.585,
+      "sadness": 0.03279
+    },
+    {
+      "title": "Hurt",
+      "grp": "Sob",
+      "valence": 0.163,
+      "sadness": 0.08955
+    },
+    {
+      "title": "I Bet You Look Good On The Dancefloor",
+      "grp": "Rock",
+      "valence": 0.778,
+      "sadness": 0.07
+    },
+    {
+      "title": "I Can't Make You Love Me",
+      "grp": "Sob",
+      "valence": 0.113,
+      "sadness": 0.08333
+    },
+    {
+      "title": "I Guess I Just Feel Like",
+      "grp": "Sob Rock",
+      "valence": 0.166,
+      "sadness": 0.05063
+    },
+    {
+      "title": "I Hate Everything About You",
+      "grp": "Rock",
+      "valence": 0.453,
+      "sadness": 0.13208
+    },
+    {
+      "title": "I Will Follow You into the Dark",
+      "grp": "Sob",
+      "valence": 0.489,
+      "sadness": 0.11881
+    },
+    {
+      "title": "I Will Remember You",
+      "grp": "Sob",
+      "valence": 0.179,
+      "sadness": 0.07
+    },
+    {
+      "title": "I'm Not The Only One",
+      "grp": "Sob",
+      "valence": 0.493,
+      "sadness": 0.09756
+    },
+    {
+      "title": "Iron Man",
+      "grp": "Rock",
+      "valence": 0.525,
+      "sadness": 0.06897
+    },
+    {
+      "title": "Last Train Home",
+      "grp": "Sob Rock",
+      "valence": 0.678,
+      "sadness": 0.05263
+    },
+    {
+      "title": "Like a Stone",
+      "grp": "Rock",
+      "valence": 0.516,
+      "sadness": 0.08537
+    },
+    {
+      "title": "Livin' On A Prayer",
+      "grp": "Rock",
+      "valence": 0.795,
+      "sadness": 0.06024
+    },
+    {
+      "title": "Mad World (Feat. Michael Andrews)",
+      "grp": "Sob",
+      "valence": 0.304,
+      "sadness": 0.08257
+    },
+    {
+      "title": "Make You Feel My Love",
+      "grp": "Sob",
+      "valence": 0.0963,
+      "sadness": 0.05952
+    },
+    {
+      "title": "Marvins Room",
+      "grp": "Sob",
+      "valence": 0.312,
+      "sadness": 0.0283
+    },
+    {
+      "title": "Me and Bobby McGee",
+      "grp": "Rock",
+      "valence": 0.66,
+      "sadness": 0.04528
+    },
+    {
+      "title": "My Immortal",
+      "grp": "Sob",
+      "valence": 0.101,
+      "sadness": 0.15094
+    },
+    {
+      "title": "New Light",
+      "grp": "Sob Rock",
+      "valence": 0.852,
+      "sadness": 0.00962
+    },
+    {
+      "title": "Numb",
+      "grp": "Rock",
+      "valence": 0.243,
+      "sadness": 0.06863
+    },
+    {
+      "title": "One Way Or Another",
+      "grp": "Rock",
+      "valence": 0.855,
+      "sadness": 0.03306
+    },
+    {
+      "title": "Paralyzer",
+      "grp": "Rock",
+      "valence": 0.861,
+      "sadness": 0.02247
+    },
+    {
+      "title": "People Get Old",
+      "grp": "Sob",
+      "valence": 0.45,
+      "sadness": 0.01316
+    },
+    {
+      "title": "Purple Rain",
+      "grp": "Sob",
+      "valence": 0.189,
+      "sadness": 0.04301
+    },
+    {
+      "title": "River",
+      "grp": "Sob",
+      "valence": 0.383,
+      "sadness": 0.04839
+    },
+    {
+      "title": "Self Care",
+      "grp": "Sob",
+      "valence": 0.177,
+      "sadness": 0.01333
+    },
+    {
+      "title": "Seven Nation Army",
+      "grp": "Rock",
+      "valence": 0.278,
+      "sadness": 0.02247
+    },
+    {
+      "title": "Shot in the Dark",
+      "grp": "Sob Rock",
+      "valence": 0.587,
+      "sadness": 0.12766
+    },
+    {
+      "title": "Skinny Love",
+      "grp": "Sob",
+      "valence": 0.109,
+      "sadness": 0.06757
+    },
+    {
+      "title": "Slow Burn",
+      "grp": "Sob",
+      "valence": 0.274,
+      "sadness": 0.02128
+    },
+    {
+      "title": "Smells Like Teen Spirit",
+      "grp": "Rock",
+      "valence": 0.72,
+      "sadness": 0.02273
+    },
+    {
+      "title": "Somebody Else",
+      "grp": "Sob",
+      "valence": 0.472,
+      "sadness": 0.04274
+    },
+    {
+      "title": "Someone Like You",
+      "grp": "Sob",
+      "valence": 0.294,
+      "sadness": 0.10577
+    },
+    {
+      "title": "Sweet Child O' Mine",
+      "grp": "Rock",
+      "valence": 0.624,
+      "sadness": 0.06579
+    },
+    {
+      "title": "Tears in Heaven",
+      "grp": "Sob",
+      "valence": 0.312,
+      "sadness": 0.0303
+    },
+    {
+      "title": "The Blower's Daughter",
+      "grp": "Sob",
+      "valence": 0.0743,
+      "sadness": 0
+    },
+    {
+      "title": "The Sky Is Crying - 1984 Version",
+      "grp": "Rock",
+      "valence": 0.581,
+      "sadness": 0.11765
+    },
+    {
+      "title": "Thunderstruck",
+      "grp": "Rock",
+      "valence": 0.259,
+      "sadness": 0
+    },
+    {
+      "title": "Til the Right One Comes",
+      "grp": "Sob Rock",
+      "valence": 0.925,
+      "sadness": 0.06061
+    },
+    {
+      "title": "Tom Sawyer",
+      "grp": "Rock",
+      "valence": 0.666,
+      "sadness": 0.03947
+    },
+    {
+      "title": "Uprising",
+      "grp": "Rock",
+      "valence": 0.411,
+      "sadness": 0.0625
+    },
+    {
+      "title": "Walk This Way",
+      "grp": "Rock",
+      "valence": 0.894,
+      "sadness": 0.00787
+    },
+    {
+      "title": "We Will Rock You - Remastered 2011",
+      "grp": "Rock",
+      "valence": 0.473,
+      "sadness": 0.09091
+    },
+    {
+      "title": "What Hurts The Most",
+      "grp": "Sob",
+      "valence": 0.33,
+      "sadness": 0.07965
+    },
+    {
+      "title": "What Sarah Said",
+      "grp": "Sob",
+      "valence": 0.0401,
+      "sadness": 0.07368
+    },
+    {
+      "title": "When I Was Your Man",
+      "grp": "Sob",
+      "valence": 0.387,
+      "sadness": 0.0354
+    },
+    {
+      "title": "When We Were Young",
+      "grp": "Sob",
+      "valence": 0.265,
+      "sadness": 0.02913
+    },
+    {
+      "title": "Why You No Love Me",
+      "grp": "Sob Rock",
+      "valence": 0.501,
+      "sadness": 0.08219
+    },
+    {
+      "title": "Wild Blue",
+      "grp": "Sob Rock",
+      "valence": 0.876,
+      "sadness": 0.21918
+    },
+    {
+      "title": "You Really Got Me - Mono Mix",
+      "grp": "Rock",
+      "valence": 0.963,
+      "sadness": 0
+    },
+    {
+      "title": "You Really Got Me - Mono Mix",
+      "grp": "Rock",
+      "valence": 0.963,
+      "sadness": 0
+    },
+    {
+      "title": "when the party's over",
+      "grp": "Sob",
+      "valence": 0.198,
+      "sadness": 0.11957
+    }
+  ]
+}

@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sob Rock findings</title>
+<style>
+:root{
+  --ground:#FBF9F2;--card:#FFFEF9;--ink:#3B3629;--ink-2:#6E6754;--ink-3:#948B73;--line:#E9E3D2;--line-soft:#F1ECDD;
+  --sage:#6B7D58;--sob:#5E7FA8;--rock:#BE6A48;--sr:#6B7D58;--jm:#B68A2E;--warn:#BE6A48;
+}
+:root[data-theme="dark"]{
+  --ground:#191811;--card:#22211A;--ink:#E6E0CF;--ink-2:#ADA694;--ink-3:#857E6B;--line:#383629;--line-soft:#2A2921;
+  --sage:#8A9C71;--sob:#7E9CC4;--rock:#CE7C5C;--sr:#8CA471;--jm:#E3B563;--warn:#CE7C5C;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font:16px/1.55 ui-serif,Georgia,"Times New Roman",serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:1.6rem;margin:0 0 .5rem}
+h2{font-size:1.25rem;margin:2.6rem 0 .6rem;padding:.25rem .6rem;border-radius:3px}
+h3{font-size:1rem;margin:1.4rem 0 .3rem}
+p{margin:.5rem 0}
+.sans,.panel,.chips,.legend,.tile,figcaption,table{font-family:ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+.lede{color:var(--ink-2)}
+/* explainer panel */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px 16px;margin:.8rem 0 1rem;font-size:.9rem}
+.panel .kick{font-size:.72rem;letter-spacing:.04em;color:var(--ink-3);margin:0 0 4px}
+.panel h3{margin:0 0 6px;font-size:1.05rem}
+.panel .lab{font-size:.7rem;color:var(--ink-3);margin:10px 0 3px;text-transform:none;font-weight:600}
+.panel ul{margin:0;padding-left:1.1rem}
+.panel li{margin:2px 0}
+.tiles{display:flex;gap:8px;flex-wrap:wrap}
+.tile{flex:1 1 120px;border:1px solid var(--line);border-radius:5px;padding:7px 9px;background:var(--ground)}
+.tile b{display:block;font-size:1.3rem;line-height:1.2}
+.tile span{font-size:.75rem;color:var(--ink-2)}
+details{margin-top:8px}
+summary{cursor:pointer;color:var(--ink-2);font-size:.82rem}
+details p{font-size:.84rem;color:var(--ink-2)}
+/* charts */
+figure{margin:1rem 0;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px}
+figcaption{font-size:.78rem;color:var(--ink-2);margin-top:6px}
+svg{display:block;width:100%;height:auto}
+svg text{fill:var(--ink-2);font:11px ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px}
+.chip{border:1px solid var(--line);background:var(--ground);color:var(--ink-2);border-radius:999px;padding:3px 10px;font-size:.78rem;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.78rem;color:var(--ink-2);margin:2px 0 6px}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}
+#tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--ground);padding:3px 8px;border-radius:4px;font:12px ui-sans-serif,sans-serif;opacity:0;z-index:50;max-width:240px}
+table{border-collapse:collapse;font-size:.8rem;width:100%}
+td,th{padding:3px 6px;text-align:right;border-bottom:1px solid var(--line-soft)}
+th:first-child,td:first-child{text-align:left}
+.sig{font-weight:700;color:var(--ink)}
+</style>
+</head>
+<body>
+<main>
+<h1>Sob Rock findings</h1>
+<p class="lede">The 2022 John Mayer analysis, re-run in 2026 on the saved extracts. Spotify's audio-features endpoint and the Genius scraper no longer work, so every number below comes from the January 2022 pull. Lyric text is not on this page; only aggregates are.</p>
+
+<div id="tip"></div>
+
+<h2 id="read">The question and the read</h2>
+<section class="panel" aria-label="Overview">
+  <p class="kick">Overview · sobrock_analysis, re-run 2026-10-24</p>
+  <h3>Is Sob Rock a genre or a label?</h3>
+  <p>Mayer called the album a shitpost, a way out of his own sad-boy mopery. The test was whether the ten tracks sound or read differently from a hand-built set of sad songs, a hand-built set of rock songs, and the rest of his catalogue.</p>
+  <div class="lab">Look for</div>
+  <ul><li>Where the album sits between the sad set and the rock set on sound.</li><li>Whether any lyric measure separates it from anything.</li></ul>
+  <div class="lab">Corpus</div>
+  <div class="tiles" id="tiles-corpus"></div>
+  <div class="lab">Limits</div>
+  <ul><li>The comparison sets were chosen by hand in 2022, so every result depends on them.</li></ul>
+  <details><summary>Method</summary><p>Welch t-tests per feature, Bonferroni-corrected across the family (nine audio features, three lyric comparisons, ten emotions). Lyrics were expanded for contractions, tokenised, lemmatised, stripped of stopwords and vocal filler, then scored against the NRC lexicon.</p></details>
+</section>
+
+<h2 id="sound">How it sounds</h2>
+<section class="panel" aria-label="Audio features">
+  <p class="kick">Audio features · Spotify, pulled January 2022</p>
+  <h3>On sound, Sob Rock sits between the two sets</h3>
+  <p>It matches the rock set on valence and differs from the sad set on most other features. On energy and danceability it differs from both.</p>
+  <div class="lab">Look for</div>
+  <ul><li>Valence: the album and the rock set overlap, the sad set sits far lower.</li><li>Energy: the album sits in the middle of the two.</li></ul>
+  <div class="lab">Counts at the corrected threshold</div>
+  <div class="tiles" id="tiles-audio"></div>
+  <div class="lab">Limits</div>
+  <ul><li>Valence is a vendor model, withdrawn in November 2024, and cannot be recomputed.</li><li>Ten tracks against about seventy.</li></ul>
+</section>
+
+<figure>
+  <div class="chips" id="feat-chips" role="group" aria-label="Audio feature"></div>
+  <div class="legend"><span><i style="background:var(--sob)"></i>Sad set</span><span><i style="background:var(--rock)"></i>Rock set</span><span><i style="background:var(--sr)"></i>Sob Rock</span></div>
+  <svg id="strip" viewBox="0 0 760 230" role="img" aria-label="Distribution of the chosen audio feature by group"></svg>
+  <figcaption id="strip-cap"></figcaption>
+</figure>
+
+<figure>
+  <div class="legend"><span><i style="background:var(--sob)"></i>Sad set</span><span><i style="background:var(--rock)"></i>Rock set</span><span><i style="background:var(--sr)"></i>Sob Rock</span></div>
+  <svg id="ev" viewBox="0 0 760 360" role="img" aria-label="Energy against valence for every track"></svg>
+  <figcaption>Each dot is a track. Hover for the title.</figcaption>
+</figure>
+
+<h2 id="words">What the words carry</h2>
+<section class="panel" aria-label="Lyric sadness">
+  <p class="kick">Lyrics · NRC sadness ratio, Genius extracts</p>
+  <h3>The album's mean sadness comes from one track</h3>
+  <p>By group mean Sob Rock has the highest sadness ratio in the study. The median is lower than the sad set's, and one song accounts for the gap.</p>
+  <div class="lab">Look for</div>
+  <ul><li>The top bar against the other nine.</li><li>Switch to median and the reference lines move.</li></ul>
+  <div class="lab">Numbers</div>
+  <div class="tiles" id="tiles-lyric"></div>
+  <div class="lab">Limits</div>
+  <ul><li>A word count has no way to hear irony, and the album's premise is irony.</li></ul>
+</section>
+<figure>
+  <div class="chips" id="stat-chips" role="group" aria-label="Reference statistic"></div>
+  <svg id="sad" viewBox="0 0 760 330" role="img" aria-label="Sadness ratio for each Sob Rock track"></svg>
+  <figcaption id="sad-cap"></figcaption>
+</figure>
+
+<h3>All ten emotions</h3>
+<section class="panel" aria-label="Emotion profile">
+  <p class="kick">Lyrics · NRC, ten dimensions</p>
+  <h3>Thirty tests, none past the corrected line</h3>
+  <p>The 2022 version reduced the lexicon to one sadness number. Keeping all ten dimensions and testing each against three comparisons leaves the album unseparated from any of them.</p>
+  <div class="tiles" id="tiles-emo"></div>
+  <div class="lab">Limits</div>
+  <ul><li>With ten tracks the test has little power, so a null here says the instrument cannot resolve the question at this size.</li></ul>
+</section>
+<figure>
+  <div id="emo"></div>
+  <figcaption>Cell value is the p-value. Shade is stronger as p falls. The line to cross is <span id="emo-thr"></span>.</figcaption>
+</figure>
+
+<h2 id="cross">Two instruments, one album</h2>
+<section class="panel" aria-label="Cross-instrument check">
+  <p class="kick">Cross-check · lyrics against audio, matched tracks</p>
+  <h3>Lyric sadness and musical mood do not move together</h3>
+  <p>Where a track has both a sadness ratio and a valence, the two are uncorrelated. Sob Rock is highest on both group means, so the sob shows up in the words and the rock in the sound.</p>
+  <div class="tiles" id="tiles-cross"></div>
+  <div class="lab">Limits</div>
+  <ul><li>Matching is by title, so tracks that did not match are out of this chart.</li></ul>
+</section>
+<figure>
+  <div class="chips" id="grp-chips" role="group" aria-label="Show groups"></div>
+  <svg id="cross-svg" viewBox="0 0 760 380" role="img" aria-label="Valence against lyric sadness"></svg>
+  <figcaption id="cross-cap"></figcaption>
+</figure>
+
+<h2 id="new">A new track: Tom and Jerry</h2>
+<section class="panel" aria-label="Tom and Jerry">
+  <p class="kick">Lyrics · NRC, one track · single released 2026-10-23</p>
+  <h3>The first Sob Rock Records single reads less sad than the album</h3>
+  <p>Scored through the same pipeline as the ten album tracks, "Tom and Jerry" has a lower sadness ratio than most of them and a larger joy share. It is one song, so these are positions in the distribution and nothing is tested.</p>
+  <div class="lab">Look for</div>
+  <ul><li>Joy and anger, where the single and the album are furthest apart.</li><li>Sadness, where it sits close to the other Mayer tracks.</li></ul>
+  <div class="lab">Numbers</div>
+  <div class="tiles" id="tiles-tj"></div>
+  <div class="lab">Limits</div>
+  <ul><li>143 scored words from one fan-site transcription, so a single misheard word moves the score.</li><li>No audio features exist for it, because the endpoint is gone.</li></ul>
+</section>
+<figure>
+  <div class="legend"><span><i style="background:var(--ink)"></i>Tom and Jerry</span><span><i style="background:var(--sr)"></i>Sob Rock mean</span><span><i style="background:var(--jm)"></i>Other Mayer mean</span></div>
+  <svg id="tj-svg" viewBox="0 0 760 360" role="img" aria-label="Emotion share for Tom and Jerry against the album and the rest of Mayer's catalogue"></svg>
+  <figcaption>Share of each track's emotion-tagged words. Hover a dot for the value.</figcaption>
+</figure>
+
+<h2 id="cannot">What this cannot see</h2>
+<ul>
+  <li><b>Power.</b> Ten tracks against thirty-odd under a ten-way correction. A null means the instrument cannot resolve the question at album scale.</li>
+  <li><b>Irony.</b> The lexicon counts sad words wherever they appear, so a sad song and a song wearing sadness look the same to it.</li>
+  <li><b>The comparison sets.</b> Thirty-five sad and thirty-three rock tracks, picked by hand in 2022.</li>
+  <li><b>The vendor model.</b> Valence cannot be audited.</li>
+</ul>
+</main>
+
+<script id="data" type="application/json">__DATA__</script>
+<script id="tjdata" type="application/json">__TJ__</script>
+<script>
+const D=JSON.parse(document.getElementById('data').textContent);
+const COL={'Sob':'var(--sob)','Rock':'var(--rock)','Sob Rock':'var(--sr)','John Mayer (other)':'var(--jm)'};
+const NS='http://www.w3.org/2000/svg';
+const $=id=>document.getElementById(id);
+const tip=$('tip');
+function el(p,n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;p.appendChild(e);return e}
+function showTip(e,txt){tip.textContent=txt;tip.style.opacity=1;tip.style.left=Math.min(e.clientX+12,innerWidth-250)+'px';tip.style.top=(e.clientY+12)+'px'}
+function hideTip(){tip.style.opacity=0}
+function dot(p,x,y,r,c,txt,o){const e=el(p,'circle',{cx:x,cy:y,r,fill:c,'fill-opacity':o||.8,stroke:'var(--card)','stroke-width':1});e.addEventListener('mousemove',ev=>showTip(ev,txt));e.addEventListener('mouseleave',hideTip);return e}
+const fmtP=p=>p<.0001?'<0.0001':p.toFixed(4);
+function tiles(id,arr){$(id).innerHTML=arr.map(([b,s])=>`<div class="tile"><b>${b}</b><span>${s}</span></div>`).join('')}
+function chips(id,opts,cur,fn,multi){const w=$(id);w.innerHTML='';opts.forEach(([k,l])=>{const b=document.createElement('button');b.className='chip';b.textContent=l;b.setAttribute('aria-pressed',multi?cur.has(k):cur===k);b.onclick=()=>fn(k);w.appendChild(b)})}
+const mean=a=>a.reduce((s,x)=>s+x,0)/a.length;
+
+/* corpus tiles */
+tiles('tiles-corpus',[[D.counts['Sob Rock'],'Sob Rock tracks'],[D.counts['Sob'],'sad comparison'],[D.counts['Rock'],'rock comparison'],[D.counts['John Mayer (other)'],'other Mayer tracks']]);
+
+/* audio */
+const F=D.audio_tests,A=D.audio_points,bA=D.bonf_audio;
+tiles('tiles-audio',[[F.filter(f=>f.p_vs_sob<bA).length+' of '+F.length,'features that differ from the sad set'],[F.filter(f=>f.p_vs_rock<bA).length+' of '+F.length,'features that differ from the rock set'],[fmtP(F.find(f=>f.feature=='valence').p_vs_rock),'valence, Sob Rock vs rock']]);
+let feat='valence';
+const FL={acousticness:'Acousticness',danceability:'Danceability',energy:'Energy',instrumentalness:'Instrumentalness',liveliness:'Liveness',loudness:'Loudness (dB)',speechiness:'Speechiness',valence:'Valence',tempo:'Tempo (bpm)'};
+function drawStrip(){
+  chips('feat-chips',Object.keys(FL).map(k=>[k,FL[k]]),feat,k=>{feat=k;drawStrip()});
+  const s=$('strip');s.innerHTML='';
+  const vals=A.map(r=>r[feat]),lo=Math.min(...vals),hi=Math.max(...vals),pad=(hi-lo)*.04;
+  const x=v=>60+(v-lo+pad)/(hi-lo+2*pad)*660;
+  const rows=['Sob','Rock','Sob Rock'];
+  rows.forEach((g,i)=>{
+    const y=40+i*60;
+    el(s,'line',{x1:60,x2:720,y1:y,y2:y,stroke:'var(--line)'});
+    el(s,'text',{x:4,y:y+4},g=='Sob'?'Sad set':g);
+    const pts=A.filter(r=>r.grp==g);
+    pts.forEach((r,j)=>dot(s,x(r[feat]),y+((j*37)%17)-8,3.6,COL[g],r.title+' · '+r[feat]));
+    const m=mean(pts.map(r=>r[feat]));
+    el(s,'line',{x1:x(m),x2:x(m),y1:y-17,y2:y+17,stroke:COL[g],'stroke-width':2.5});
+  });
+  for(let t=0;t<=4;t++){const v=lo+(hi-lo)*t/4;el(s,'text',{x:x(v),y:222,'text-anchor':'middle'},v>=100?v.toFixed(0):v.toFixed(2))}
+  const T=F.find(f=>f.feature==feat);
+  $('strip-cap').innerHTML=`Bar is the group mean. Sob Rock vs sad set p = ${fmtP(T.p_vs_sob)}${T.p_vs_sob<bA?' (past the line)':''}; vs rock set p = ${fmtP(T.p_vs_rock)}${T.p_vs_rock<bA?' (past the line)':''}. Line to cross: ${bA.toFixed(4)}.`;
+}
+drawStrip();
+(function(){
+  const s=$('ev');
+  const x=v=>50+v*690,y=v=>330-v*310;
+  for(let t=0;t<=5;t++){const v=t/5;el(s,'line',{x1:50,x2:740,y1:y(v),y2:y(v),stroke:'var(--line-soft)'});el(s,'text',{x:44,y:y(v)+4,'text-anchor':'end'},v.toFixed(1));el(s,'text',{x:x(v),y:350,'text-anchor':'middle'},v.toFixed(1))}
+  el(s,'text',{x:395,y:366,'text-anchor':'middle'},'Valence');
+  el(s,'text',{x:12,y:170,transform:'rotate(-90 12 170)','text-anchor':'middle'},'Energy');
+  ['Sob','Rock','Sob Rock'].forEach(g=>A.filter(r=>r.grp==g).forEach(r=>dot(s,x(r.valence),y(r.energy),g=='Sob Rock'?6:3.6,COL[g],r.title+' · valence '+r.valence+', energy '+r.energy,g=='Sob Rock'?.95:.6)));
+})();
+
+/* lyrics */
+const LS=Object.fromEntries(D.lyric_summary.map(r=>[r.grp,r]));
+const SR=D.sadness_tracks.filter(t=>t.grp=='Sob Rock').sort((a,b)=>b.sadness-a.sadness);
+tiles('tiles-lyric',[[LS['Sob Rock'].mean.toFixed(3),'Sob Rock mean ratio'],[LS['Sob Rock'].median.toFixed(3),'Sob Rock median'],[SR[0].sadness.toFixed(3),'top track'],[fmtP(Math.min(...D.lyric_tests.map(t=>t.p))),'smallest p of three, line '+D.bonf_lyric.toFixed(4)]]);
+let stat='median';
+function drawSad(){
+  chips('stat-chips',[['median','Median'],['mean','Mean']],stat,k=>{stat=k;drawSad()});
+  const s=$('sad');s.innerHTML='';
+  const mx=Math.max(SR[0].sadness,...Object.values(LS).map(r=>r[stat]))*1.08,x=v=>200+v/mx*540;
+  SR.forEach((t,i)=>{const y=14+i*28;el(s,'text',{x:194,y:y+13,'text-anchor':'end'},t.title);
+    const r=el(s,'rect',{x:200,y,width:x(t.sadness)-200,height:20,fill:COL['Sob Rock'],'fill-opacity':.85,rx:2});
+    r.addEventListener('mousemove',ev=>showTip(ev,t.title+' · '+t.sadness.toFixed(3)+' of '+t.words+' words'));r.addEventListener('mouseleave',hideTip)});
+  [['Sob','Sad set'],['Rock','Rock set'],['John Mayer (other)','Other Mayer']].forEach(([g,l],i)=>{
+    const v=LS[g][stat];el(s,'line',{x1:x(v),x2:x(v),y1:6,y2:292,stroke:COL[g],'stroke-width':1.8,'stroke-dasharray':'5 3'});
+    el(s,'text',{x:x(v)+3,y:308+(i%2)*12,fill:COL[g]},l+' '+v.toFixed(3))});
+  const sv=LS['Sob Rock'][stat];el(s,'line',{x1:x(sv),x2:x(sv),y1:6,y2:292,stroke:COL['Sob Rock'],'stroke-width':2.4});
+  $('sad-cap').textContent='Solid line is the Sob Rock '+stat+' ('+sv.toFixed(3)+'). Dashed lines are the '+stat+' of each comparison group.';
+}
+drawSad();
+
+/* emotions */
+const E=D.emo_tests,bE=D.bonf_emo;
+const allp=E.flatMap(e=>[e.p_vs_sob,e.p_vs_rock,e.p_vs_jm]);
+tiles('tiles-emo',[['30','tests run'],[bE.toFixed(4),'corrected line'],[fmtP(Math.min(...allp)),'smallest p'],[allp.filter(p=>p<bE).length,'past the line']]);
+$('emo-thr').textContent='p < '+bE.toFixed(4);
+(function(){
+  let h='<table><thead><tr><th>Emotion</th><th>vs sad set</th><th>vs rock set</th><th>vs other Mayer</th></tr></thead><tbody>';
+  const sh=p=>{const a=Math.min(1,-Math.log10(p)/2.5);return `background:color-mix(in srgb,var(--sage) ${Math.round(a*70)}%,transparent)`};
+  E.forEach(e=>{h+=`<tr><td>${e.emotion}</td>`+[e.p_vs_sob,e.p_vs_rock,e.p_vs_jm].map(p=>`<td class="${p<bE?'sig':''}" style="${sh(p)}">${fmtP(p)}</td>`).join('')+'</tr>'});
+  $('emo').innerHTML=h+'</tbody></table>';
+})();
+
+/* cross */
+const C=D.cross,CP=D.cross_points;
+const gm=g=>mean(CP.filter(p=>p.grp==g).map(p=>p.sadness)),gv=g=>mean(CP.filter(p=>p.grp==g).map(p=>p.valence));
+tiles('tiles-cross',[[C.n,'matched tracks'],['r = '+C.r.toFixed(2),'Pearson'],['p = '+C.p.toFixed(2),'two-sided'],['['+C.ci[0].toFixed(2)+', '+C.ci[1].toFixed(2)+']','95% interval']]);
+const shown=new Set(['Sob','Rock','Sob Rock','John Mayer (other)']);
+const GL={'Sob':'Sad set','Rock':'Rock set','Sob Rock':'Sob Rock','John Mayer (other)':'Other Mayer'};
+function drawCross(){
+  chips('grp-chips',Object.keys(GL).map(k=>[k,GL[k]]),shown,k=>{shown.has(k)?shown.delete(k):shown.add(k);drawCross()},true);
+  const s=$('cross-svg');s.innerHTML='';
+  const my=Math.max(...CP.map(p=>p.sadness))*1.06,x=v=>50+v*690,y=v=>340-v/my*320;
+  for(let t=0;t<=5;t++){const v=t/5;el(s,'text',{x:x(v),y:358,'text-anchor':'middle'},v.toFixed(1));el(s,'line',{x1:x(v),x2:x(v),y1:20,y2:340,stroke:'var(--line-soft)'})}
+  for(let t=0;t<=4;t++){const v=my*t/4;el(s,'text',{x:44,y:y(v)+4,'text-anchor':'end'},v.toFixed(2));el(s,'line',{x1:50,x2:740,y1:y(v),y2:y(v),stroke:'var(--line-soft)'})}
+  el(s,'text',{x:395,y:374,'text-anchor':'middle'},'Spotify valence');
+  el(s,'text',{x:12,y:180,transform:'rotate(-90 12 180)','text-anchor':'middle'},'NRC sadness ratio');
+  const vx=CP.map(p=>p.valence),vy=CP.map(p=>p.sadness),mx=mean(vx),mY=mean(vy);
+  const b=vx.reduce((s,v,i)=>s+(v-mx)*(vy[i]-mY),0)/vx.reduce((s,v)=>s+(v-mx)**2,0),a=mY-b*mx;
+  el(s,'line',{x1:x(0),x2:x(1),y1:y(a),y2:y(a+b),stroke:'var(--ink-3)','stroke-width':1.2,'stroke-dasharray':'4 3'});
+  CP.filter(p=>shown.has(p.grp)).forEach(p=>dot(s,x(p.valence),y(p.sadness),p.grp=='Sob Rock'?6:3.8,COL[p.grp],p.title+' · valence '+p.valence+', sadness '+p.sadness.toFixed(3),p.grp=='Sob Rock'?.95:.6));
+  $('cross-cap').textContent='Dashed line is the fit across all '+C.n+' matched tracks. Group means (valence, sadness): '+['Sob','Rock','Sob Rock'].map(g=>GL[g]+' ('+gv(g).toFixed(2)+', '+gm(g).toFixed(3)+')').join('; ')+'.';
+}
+drawCross();
+
+/* Tom and Jerry */
+const T=JSON.parse($('tjdata').textContent);
+tiles('tiles-tj',[[T.sadness.toFixed(3),'sadness ratio, '+T.words+' words'],[Math.round(T.sadness_percentile['Sob Rock']*100)+'%','of Sob Rock tracks at or below it'],[Math.round(T.sadness_percentile['John Mayer (other)']*100)+'%','of other Mayer tracks at or below it']]);
+(function(){
+  const s=$('tj-svg'),E2=T.emotions,mx=Math.max(...E2.flatMap(e=>[e.tj,e.jm,e.sobrock]))*1.08,x=v=>110+v/mx*620;
+  E2.forEach((e,i)=>{const y=22+i*33;
+    el(s,'line',{x1:110,x2:730,y1:y,y2:y,stroke:'var(--line)'});
+    el(s,'text',{x:104,y:y+4,'text-anchor':'end'},e.emotion);
+    const lo=Math.min(e.tj,e.jm,e.sobrock),hi=Math.max(e.tj,e.jm,e.sobrock);
+    el(s,'line',{x1:x(lo),x2:x(hi),y1:y,y2:y,stroke:'var(--ink-3)','stroke-width':2});
+    dot(s,x(e.sobrock),y,5,COL['Sob Rock'],'Sob Rock mean · '+e.emotion+' '+e.sobrock.toFixed(3),.95);
+    dot(s,x(e.jm),y,5,COL['John Mayer (other)'],'Other Mayer mean · '+e.emotion+' '+e.jm.toFixed(3),.95);
+    dot(s,x(e.tj),y,7,'var(--ink)','Tom and Jerry · '+e.emotion+' '+e.tj.toFixed(3),1)});
+  for(let t=0;t<=4;t++){const v=mx*t/4;el(s,'text',{x:x(v),y:354,'text-anchor':'middle'},v.toFixed(2))}
+})();
+</script>
+</body>
+</html>
